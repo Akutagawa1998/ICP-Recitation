@@ -1,0 +1,677 @@
+{
+  "schema_version": 1,
+  "recitation_id": "01",
+  "title": "First steps with Python",
+  "expected_exercise_count": 8,
+  "source_inventory": [
+    {
+      "source_id": "recitation-01",
+      "kind": "recitation",
+      "path": "recitation/Recitaion 01.pdf",
+      "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+      "page_count": 2
+    },
+    {
+      "source_id": "lecture-01",
+      "kind": "lecture",
+      "path": "lecture/Lecture 01.pdf",
+      "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+      "page_count": 45
+    },
+    {
+      "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+      "kind": "textbook",
+      "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+      "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+      "page_count": 917
+    }
+  ],
+  "recitation_source_id": "recitation-01",
+  "lecture_selection": {
+    "candidate_source_ids": [
+      "lecture-01"
+    ],
+    "selected_source_ids": [
+      "lecture-01"
+    ],
+    "basis": [
+      {
+        "kind": "content",
+        "source_ids": [
+          "lecture-01",
+          "recitation-01"
+        ],
+        "evidence": "Lecture 01 is the repository's only lecture candidate and directly overlaps Recitation 01 on interactive/script modes, binary and hexadecimal notation, base conversions, and the bin()/hex() checks. The same comparison also exposes the lecture gaps recorded as unresolved references below."
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "exercise_id": "R01-E01",
+      "order": 1,
+      "prompt": "Exercises 1 – Try Python in Two Modes 1) Type 6 + 4 * 9 in the Python prompt and hit enter. Check what happens. 2) Now create a python script named test1.py with the following contents: 6+4*9 What happens when you run this script? 3) Now change the contents in text1.py to: print (6 + 4 * 9) What happens when you run the script?",
+      "original_prompt_sha256": "9c888932b65a238ab43b9c1ae99b1bb3d1d898178d251c9a3ec75ced3e6ab887",
+      "subparts": [
+        {
+          "subpart_id": "R01-E01-P01",
+          "label": "1)",
+          "prompt": "1) Type 6 + 4 * 9 in the Python prompt and hit enter. Check what happens.",
+          "original_prompt_sha256": "107d0f3e835d71449fba3a52a90ee00c208d60712213be54660aca6d4427cebc"
+        },
+        {
+          "subpart_id": "R01-E01-P02",
+          "label": "2)",
+          "prompt": "2) Now create a python script named test1.py with the following contents: 6+4*9 What happens when you run this script?",
+          "original_prompt_sha256": "8aaf25d278c2ab4276da59fd3f00ee52973d7bc11f6728bd0a19aa7005c6c533"
+        },
+        {
+          "subpart_id": "R01-E01-P03",
+          "label": "3)",
+          "prompt": "3) Now change the contents in text1.py to: print (6 + 4 * 9) What happens when you run the script?",
+          "original_prompt_sha256": "c2dc7e7d6d14891204a76677330f7bbd552ddbdc1c56293c2b7c0bb774b95313"
+        }
+      ],
+      "concepts": [
+        "interactive and script modes",
+        "displaying script output with print"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 1,
+        "item_label": "Exercises 1",
+        "anchor": "Try Python in Two Modes"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "interactive and script modes"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 41,
+          "locator": "Slide 41",
+          "title": "Pyrhon IDE",
+          "anchor": "Shell (Interactive) mode"
+        },
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "displaying script output with print"
+          ],
+          "note": "Lecture 01 distinguishes interactive and script modes but does not teach Python's print function or the need for explicit output in a script."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "interactive and script modes"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 47,
+          "page_label": "46",
+          "chapter": "Chapter 1",
+          "section": "1.5: Using Python",
+          "printed_page": "46",
+          "title": "Using Python",
+          "anchor": "interactive mode and script mode"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "displaying script output with print"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 49,
+          "page_label": "48",
+          "chapter": "Chapter 1",
+          "section": "1.5: Using Python",
+          "printed_page": "48",
+          "title": "Writing Python Programs and Running Them in Script Mode",
+          "anchor": "program that displays the following three lines of text"
+        }
+      ],
+      "notes": "Subpart 2 creates test1.py, while subpart 3 says text1.py. This likely source typo is preserved verbatim and should be surfaced to the TA rather than silently corrected."
+    },
+    {
+      "exercise_id": "R01-E02",
+      "order": 2,
+      "prompt": "Exercises 2 – Evaluate expression 1) Using the Python interpreter, type 1 + 2 and then hit return. Check out what happens. 2) * is the multiplication operator, and ** is the exponentiation operator. Experiment by entering different expressions and recording what is displayed by the Python interpreter.",
+      "original_prompt_sha256": "f886ffe0efb9617aa70c625050f974392ca3ee852d115bae7a4089d46c3d54a9",
+      "subparts": [
+        {
+          "subpart_id": "R01-E02-P01",
+          "label": "1)",
+          "prompt": "1) Using the Python interpreter, type 1 + 2 and then hit return. Check out what happens.",
+          "original_prompt_sha256": "b286f3c0bcb3979295685e3ea806a5e5e77d38bca955a1742e66c8495bf4ca9b"
+        },
+        {
+          "subpart_id": "R01-E02-P02",
+          "label": "2)",
+          "prompt": "2) * is the multiplication operator, and ** is the exponentiation operator. Experiment by entering different expressions and recording what is displayed by the Python interpreter.",
+          "original_prompt_sha256": "63481304ef9a538cd4fb0f598b851b6f19e6a5e1d1a68d0f51fb4e369cf97d65"
+        }
+      ],
+      "concepts": [
+        "evaluating arithmetic expressions interactively",
+        "Python multiplication and exponentiation operators"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 1,
+        "item_label": "Exercises 2",
+        "anchor": "Evaluate expression"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "evaluating arithmetic expressions interactively"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 41,
+          "locator": "Slide 41",
+          "title": "Pyrhon IDE",
+          "anchor": "Best for quick tests and calculations"
+        },
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "Python multiplication and exponentiation operators"
+          ],
+          "note": "Lecture 01 mentions arithmetic in general but does not teach Python's * and ** operator syntax."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "evaluating arithmetic expressions interactively",
+            "Python multiplication and exponentiation operators"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 81,
+          "page_label": "80",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations",
+          "printed_page": "80",
+          "title": "Performing Calculations",
+          "anchor": "Python has numerous operators that can be used to perform mathematical calculations"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E03",
+      "order": 3,
+      "prompt": "Exercises 3 – Syntax error 1) Type 1 2 and then hit return. Check out what happens this time. In many cases, Python indicates where the syntax error occurred, but it is not always right, and it doesn’t give you much information about what is wrong. So, for the most part, the burden is on you to learn the syntax rules.",
+      "original_prompt_sha256": "241b1d56e82186d1def06783f413665e0a86a33e04683e7847900bd173520d3d",
+      "subparts": [
+        {
+          "subpart_id": "R01-E03-P01",
+          "label": "1)",
+          "prompt": "1) Type 1 2 and then hit return. Check out what happens this time. In many cases, Python indicates where the syntax error occurred, but it is not always right, and it doesn’t give you much information about what is wrong. So, for the most part, the burden is on you to learn the syntax rules.",
+          "original_prompt_sha256": "7f236b82c67e3dc559b7d73debe148128b9b17188e2ca1a8cdee4e2f55123b66"
+        }
+      ],
+      "concepts": [
+        "Python syntax errors"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 1,
+        "item_label": "Exercises 3",
+        "anchor": "Syntax error"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "Python syntax errors"
+          ],
+          "note": "No page in Lecture 01 teaches syntax rules or Python syntax errors."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "Python syntax errors"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 46,
+          "page_label": "45",
+          "chapter": "Chapter 1",
+          "section": "1.4: (Noninteractive) Checkpoint Questions from the Book",
+          "printed_page": "45",
+          "title": "Executing a high-level program with an interpreter",
+          "anchor": "A syntax error is a mistake"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E04",
+      "order": 4,
+      "prompt": "Exercises 4 – Print hello 1) Type print(\"hello\") at the Python prompt. Check out what happens. 2) Now type \"hello\" and check your result.",
+      "original_prompt_sha256": "3ad02ae6c23adcd2b6e1e8f24a8d8fe71d7daf3033993e75eb2052ad16e36cdf",
+      "subparts": [
+        {
+          "subpart_id": "R01-E04-P01",
+          "label": "1)",
+          "prompt": "1) Type print(\"hello\") at the Python prompt. Check out what happens.",
+          "original_prompt_sha256": "b334f62f67a930f060a8985adf318613936ebf3134bf8729a74461436a21c510"
+        },
+        {
+          "subpart_id": "R01-E04-P02",
+          "label": "2)",
+          "prompt": "2) Now type \"hello\" and check your result.",
+          "original_prompt_sha256": "735b547f00df4033e8c0e88c79f59a8b97d5ec0312cf18e1141abda3cabedb87"
+        }
+      ],
+      "concepts": [
+        "using print to display a string",
+        "string literals and quotation marks"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 1,
+        "item_label": "Exercises 4",
+        "anchor": "Print hello"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "using print to display a string",
+            "string literals and quotation marks"
+          ],
+          "note": "Lecture 01 does not teach Python's print function or string-literal quotation."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "using print to display a string"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 63,
+          "page_label": "62",
+          "chapter": "Chapter 2",
+          "section": "2.3: Displaying Output with the print Function",
+          "printed_page": "62",
+          "title": "Displaying Output with the print Function",
+          "anchor": "the print function, which displays output on the screen"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "string literals and quotation marks"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 64,
+          "page_label": "63",
+          "chapter": "Chapter 2",
+          "section": "2.3: Displaying Output with the print Function",
+          "printed_page": "63",
+          "title": "Strings and String Literals",
+          "anchor": "string literals must be enclosed in quote marks"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E05",
+      "order": 5,
+      "prompt": "Exercises 5 – Say \"cheese\" Type cheese without the quotation marks. What kind of error is this?",
+      "original_prompt_sha256": "a120bb1a040fd30f0e50e6993a928ffc83e5836d9f70491fe7828d2e269a95ea",
+      "subparts": [],
+      "concepts": [
+        "string literals and quotation marks",
+        "undefined-name errors"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 1,
+        "item_label": "Exercises 5",
+        "anchor": "Say \"cheese\""
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "string literals and quotation marks",
+            "undefined-name errors"
+          ],
+          "note": "Lecture 01 does not teach string-literal quotation or Python undefined-name errors."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "string literals and quotation marks"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 64,
+          "page_label": "63",
+          "chapter": "Chapter 2",
+          "section": "2.3: Displaying Output with the print Function",
+          "printed_page": "63",
+          "title": "Strings and String Literals",
+          "anchor": "string literals must be enclosed in quote marks"
+        },
+        {
+          "kind": "textbook",
+          "status": "unresolved",
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "covers": [
+            "undefined-name errors"
+          ],
+          "note": "The textbook discusses names and mentions a 'name is not defined' message, but the located occurrence straddles a TOC section boundary and does not identify the NameError type requested by the exercise."
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E06",
+      "order": 6,
+      "prompt": "Exercises 6 – Getting to know print 1) Write a program named using_print1.py that displays the following then run from the command prompt: This is line 1. This is line 2, with a blank line above it.",
+      "original_prompt_sha256": "4d173e02cb7d373279456d366e102b06ae5bc2afcc551b1b05700c0aa19af1c7",
+      "subparts": [
+        {
+          "subpart_id": "R01-E06-P01",
+          "label": "1)",
+          "prompt": "1) Write a program named using_print1.py that displays the following then run from the command prompt: This is line 1. This is line 2, with a blank line above it.",
+          "original_prompt_sha256": "8e276d55c9a3548e2bd156d623b08022c6e6325c6ed9c5463851fa3460a3c665"
+        }
+      ],
+      "concepts": [
+        "displaying multiple lines with print",
+        "blank-line formatting"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 2,
+        "item_label": "Exercises 6",
+        "anchor": "Getting to know print"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "unresolved",
+          "source_id": "lecture-01",
+          "covers": [
+            "displaying multiple lines with print",
+            "blank-line formatting"
+          ],
+          "note": "Lecture 01 does not teach Python print calls or newline/blank-line formatting."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "displaying multiple lines with print"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 63,
+          "page_label": "62",
+          "chapter": "Chapter 2",
+          "section": "2.3: Displaying Output with the print Function",
+          "printed_page": "62",
+          "title": "Displaying Output with the print Function",
+          "anchor": "the statements in this program execute in the order that they appear"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "blank-line formatting"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 97,
+          "page_label": "96",
+          "chapter": "Chapter 2",
+          "section": "2.9: More About the print Function",
+          "printed_page": "96",
+          "title": "Escape Characters",
+          "anchor": "causes output to advance to the next line"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E07",
+      "order": 7,
+      "prompt": "Exercises 7 – Binary Numbering System Numbers are represented in decimal system by default in Python. But it is also possible to input positive integers in binary directly. 1) Type in the interpreter 0b10011010 and check out what happens. 2) Try different binary values and check if the conversion is correct. Python also has a built-in function that allows one to display numbers in binary representation. 3) Type bin(100) and check out what happens. What kind of output is displayed? Try with different values.",
+      "original_prompt_sha256": "3fae5afaedc70efcebd346d774ef2177817cc5cb0c3ff82c18556deea9875511",
+      "subparts": [
+        {
+          "subpart_id": "R01-E07-P01",
+          "label": "1)",
+          "prompt": "1) Type in the interpreter 0b10011010 and check out what happens.",
+          "original_prompt_sha256": "efea656f1a064fbadb12e2b8a08655e976e0cd6c37d0129e6699c49803923e88"
+        },
+        {
+          "subpart_id": "R01-E07-P02",
+          "label": "2)",
+          "prompt": "2) Try different binary values and check if the conversion is correct. Python also has a built-in function that allows one to display numbers in binary representation.",
+          "original_prompt_sha256": "7bee38c0f7d1225857ffb05ca92696b486e9f37bd6ab6c625aa239e6c1f81ce2"
+        },
+        {
+          "subpart_id": "R01-E07-P03",
+          "label": "3)",
+          "prompt": "3) Type bin(100) and check out what happens. What kind of output is displayed? Try with different values.",
+          "original_prompt_sha256": "c12a03fb7a586c7329f30d39c2fb186c91236c93710cf764291fa7a66ffa3cf9"
+        }
+      ],
+      "concepts": [
+        "binary-to-decimal conversion",
+        "Python binary literals and bin()"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 2,
+        "item_label": "Exercises 7",
+        "anchor": "Binary Numbering System"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "binary-to-decimal conversion"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 21,
+          "locator": "Slide 21",
+          "title": "Storing integers",
+          "anchor": "a binary preceded by ‘0b’"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "Python binary literals and bin()"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 29,
+          "locator": "Slide 29",
+          "title": "You Try it!",
+          "anchor": "Try bin() and hex() functions in interactive mode"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "binary-to-decimal conversion"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 36,
+          "page_label": "35",
+          "chapter": "Chapter 1",
+          "section": "1.3: How Computers Store Data",
+          "printed_page": "35",
+          "title": "Determining the value of a binary number",
+          "anchor": "To determine the value of a binary number"
+        },
+        {
+          "kind": "textbook",
+          "status": "unresolved",
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "covers": [
+            "Python binary literals and bin()"
+          ],
+          "note": "The textbook teaches binary numbering and conversion but no direct coverage of Python's 0b literal syntax or bin() function was located."
+        }
+      ]
+    },
+    {
+      "exercise_id": "R01-E08",
+      "order": 8,
+      "prompt": "Exercises 8 – Hexadecimal Numbering System In Python, you can input positive integers in hexadecimal directly. 1) Type in the interpreter 0xAB and check out what happens. 2) Try different hexadecimal values and check if the conversion is correct. Python also has a built-in function that allows you to display numbers in hexadecimal representation. 3) Type hex(100) and check out what happens. What kind of output is displayed? Fill the following table by converting the values provided in one of the columns to corresponding missing representation. Use Python’s built-in functions to check if the conversions are correct. Decimal Binary Hexadecimal 0b1100 100 0xA4 247 0x12C",
+      "original_prompt_sha256": "9a0f5e5ae2e937350b4cea4d9f53bf7cd1dd356dc2746cedcbb1c27addfc0ebd",
+      "subparts": [
+        {
+          "subpart_id": "R01-E08-P01",
+          "label": "1)",
+          "prompt": "1) Type in the interpreter 0xAB and check out what happens.",
+          "original_prompt_sha256": "86b0c55f5aadca5206b2750fe1969b703650b4ff372955330134da60991fcc08"
+        },
+        {
+          "subpart_id": "R01-E08-P02",
+          "label": "2)",
+          "prompt": "2) Try different hexadecimal values and check if the conversion is correct. Python also has a built-in function that allows you to display numbers in hexadecimal representation.",
+          "original_prompt_sha256": "64b94594d2f8e4a32b00b4a2c30b54eba31fb43bb0e8efd52ab8ce93fa06adf7"
+        },
+        {
+          "subpart_id": "R01-E08-P03",
+          "label": "3)",
+          "prompt": "3) Type hex(100) and check out what happens. What kind of output is displayed? Fill the following table by converting the values provided in one of the columns to corresponding missing representation. Use Python’s built-in functions to check if the conversions are correct. Decimal Binary Hexadecimal 0b1100 100 0xA4 247 0x12C",
+          "original_prompt_sha256": "46aee7bbad2c9cba7cf04ca1fbb28bae6c1a5e31612b0588a30b6acf446bbd14"
+        }
+      ],
+      "concepts": [
+        "hexadecimal-to-decimal conversion",
+        "converting among decimal, binary, and hexadecimal",
+        "Python hexadecimal literals and hex()"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-01",
+        "path": "recitation/Recitaion 01.pdf",
+        "sha256": "f34480cf0dbc0fe9b6c4d94e94f852888c1b3116e8ab25ef5105ed7282b2e76b",
+        "pdf_page": 2,
+        "item_label": "Exercises 8",
+        "anchor": "Hexadecimal Numbering System"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "hexadecimal-to-decimal conversion",
+            "converting among decimal, binary, and hexadecimal"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 28,
+          "locator": "Slide 28",
+          "title": "Hexadecimal",
+          "anchor": "One hexadecimal digit represents four binary bits"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "converting among decimal, binary, and hexadecimal",
+            "Python hexadecimal literals and hex()"
+          ],
+          "source_id": "lecture-01",
+          "path": "lecture/Lecture 01.pdf",
+          "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+          "pdf_page": 29,
+          "locator": "Slide 29",
+          "title": "You Try it!",
+          "anchor": "Try bin() and hex() functions in interactive mode"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "converting among decimal, binary, and hexadecimal"
+          ],
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "pdf_page": 35,
+          "page_label": "34",
+          "chapter": "Chapter 1",
+          "section": "1.3: How Computers Store Data",
+          "printed_page": "34",
+          "title": "Storing Numbers",
+          "anchor": "the binary numbering system",
+          "note": "This page supplies binary positional-value background only; it does not teach hexadecimal conversion."
+        },
+        {
+          "kind": "textbook",
+          "status": "unresolved",
+          "source_id": "textbook-starting-out-with-python-revel-tony-gaddis-6e",
+          "covers": [
+            "hexadecimal-to-decimal conversion",
+            "Python hexadecimal literals and hex()"
+          ],
+          "note": "No substantive textbook coverage of hexadecimal conversion, Python's 0x literal syntax, or hex() was located; the only 'hexadecimal' hit is a review-question distractor."
+        }
+      ],
+      "notes": "The final conversion table is an unnumbered task after item 3. The version-1 extractor therefore includes the table in R01-E08-P03. Preserve this manifest shape for validation, but ask the TA whether the table should be treated as a separate pedagogical subpart."
+    }
+  ]
+}

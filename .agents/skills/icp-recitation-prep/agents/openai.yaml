@@ -1,0 +1,4 @@
+interface:
+  display_name: "ICP Recitation Prep"
+  short_description: "Build paired, source-grounded Jupyter recitations"
+  default_prompt: "Use $icp-recitation-prep to prepare a cited student/instructor notebook pair for the next recitation."

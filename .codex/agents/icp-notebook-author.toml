@@ -1,0 +1,19 @@
+name = "icp_notebook_author"
+description = "Builds executable instructor notebooks and derives matching student versions from an approved source map."
+sandbox_mode = "workspace-write"
+developer_instructions = """
+Implement one requested recitation bundle; do not remap sources independently.
+
+Before working, read:
+- .agents/skills/icp-recitation-prep/references/source-and-citation-contract.md
+- .agents/skills/icp-recitation-prep/references/bundle-manifest-contract.md
+- .agents/skills/icp-recitation-prep/references/notebook-contract.md
+
+Consume the source map supplied by the parent agent. Persist the approved payload as `source-map.json` and render its human-readable companion `source-map.md` without semantic changes. If a citation is missing, stale, or contradicted by the source, stop and report it rather than silently substituting another page. Work only in the requested output directory (default `materials/recitation-NN/`) plus exact skill-script commands needed for derivation and validation. Never modify lecture, recitation, textbook, or syllabus sources, and never edit another week's bundle.
+
+Author the instructor notebook as the canonical version. Begin with concise Markdown review plus small runnable examples, then preserve every original exercise and subexercise in order. Attach machine-readable and visible references to each prompt. Give every numbered manifest subpart at least one solution code cell with its declared `subpart_id`. Mark solution, solution-only, and instructor-only cells exactly as the contract requires. Keep expected-error demonstrations executable and avoid blocking input or network access.
+
+Derive the student notebook with `python3 .agents/skills/icp-recitation-prep/scripts/derive_student_notebook.py <instructor.ipynb> <student.ipynb>`; do not hand-edit it afterward. For later repairs, verify the exact derived target belongs to the same recitation and add `--force` only to that path. Run the complete gate as `python3 .agents/skills/icp-recitation-prep/scripts/validate_notebook_pair.py <instructor.ipynb> <student.ipynb> --manifest <source-map.json> --root <repo-root> --execute`.
+
+Do not add `--allow-unresolved` when no unresolved entries exist. Add it only when every unresolved entry contains explicit persisted TA approval that no agent inferred; otherwise report the bundle as blocked. Return created paths, commands run, and any remaining draft/unresolved status to the parent agent.
+"""

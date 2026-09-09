@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate an ICP recitation instructor/student notebook pair and its PDF citations."""
+"""Validate an ICP recitation notebook pair and its native PDF/PPTX citations."""
 
 from __future__ import annotations
 
@@ -35,7 +35,10 @@ except ImportError:  # pragma: no cover - compatibility path
             "PyMuPDF is required. Install it with: python3 -m pip install pymupdf"
         ) from exc
 
-from course_sources import normalize_text, sha256_file, source_kind, toc_title
+from course_sources import (
+    PptxDocument, SUPPORTED_SCHEMA_VERSIONS, normalize_text, open_source_document,
+    sha256_file, source_kind, toc_title,
+)
 from derive_student_notebook import REMOVAL_TAGS, derive_notebook, tags_for, validate_student_source
 
 
@@ -115,11 +118,12 @@ class Validator:
         self.root = root.resolve()
         self.allow_unresolved = allow_unresolved
         self.issues: list[Issue] = []
-        self._documents: dict[Path, fitz.Document] = {}
+        self._documents: dict[Path, fitz.Document | PptxDocument] = {}
         self._hashes: dict[Path, str] = {}
         self.registry: dict[str, dict[str, object]] = {}
         self.manifest_exercises: list[dict[str, object]] = []
         self.unresolved_count = 0
+        self.schema_version = 1
 
     def close(self) -> None:
         for document in self._documents.values():
@@ -157,15 +161,16 @@ class Validator:
         if not candidate.is_file():
             self.error("source.missing", f"{context}: source file does not exist: {relative_path}")
             return None
-        if candidate.suffix.casefold() != ".pdf":
-            self.error("source.not_pdf", f"{context}: validator currently expects a PDF: {relative_path}")
+        supported = {".pdf", ".pptx"} if self.schema_version == 2 else {".pdf"}
+        if candidate.suffix.casefold() not in supported:
+            self.error("source.format", f"{context}: unsupported source format for schema {self.schema_version}: {relative_path}")
             return None
         return candidate
 
-    def document(self, path: Path, context: str) -> fitz.Document | None:
+    def document(self, path: Path, context: str) -> fitz.Document | PptxDocument | None:
         if path not in self._documents:
             try:
-                self._documents[path] = fitz.open(path)
+                self._documents[path] = open_source_document(path)
             except Exception as exc:  # pragma: no cover - corrupt input path
                 self.error("source.open", f"{context}: cannot open {path}: {exc}")
                 return None
@@ -182,17 +187,18 @@ class Validator:
 
     def validate_page(
         self,
-        document: fitz.Document,
+        document: fitz.Document | PptxDocument,
         page_value: object,
         context: str,
     ) -> int | None:
+        field = "slide_number" if isinstance(document, PptxDocument) else "pdf_page"
         if not isinstance(page_value, int) or isinstance(page_value, bool):
-            self.error("source.pdf_page", f"{context}: pdf_page must be a one-based integer.")
+            self.error(f"source.{field}", f"{context}: {field} must be a one-based integer.")
             return None
         if not 1 <= page_value <= document.page_count:
             self.error(
                 "source.page_range",
-                f"{context}: PDF page {page_value} is outside 1..{document.page_count}.",
+                f"{context}: {field} {page_value} is outside 1..{document.page_count}.",
             )
             return None
         return page_value
@@ -215,8 +221,11 @@ class Validator:
             },
             "manifest",
         )
-        if manifest.get("schema_version") != 1:
-            self.error("manifest.schema_version", "Manifest schema_version must be 1.")
+        version = manifest.get("schema_version")
+        if type(version) is not int or version not in SUPPORTED_SCHEMA_VERSIONS:
+            self.error("manifest.schema_version", "Manifest schema_version must be 1 or 2.")
+        else:
+            self.schema_version = version
         recitation_id = manifest.get("recitation_id")
         if not isinstance(recitation_id, str) or not recitation_id:
             self.error("manifest.recitation_id", "Manifest recitation_id must be a non-empty string.")
@@ -236,7 +245,8 @@ class Validator:
                 continue
             self.reject_unknown_fields(
                 record,
-                {"source_id", "kind", "path", "sha256", "page_count"},
+                {"source_id", "kind", "path", "sha256", "page_count"}
+                | ({"slide_count"} if self.schema_version == 2 else set()),
                 context,
             )
             source_id = record.get("source_id")
@@ -264,13 +274,20 @@ class Validator:
             if path is not None:
                 document = self.document(path, context)
                 self.validate_hash(path, record.get("sha256"), context)
-                page_count = record.get("page_count")
+                is_pptx = path.suffix.casefold() == ".pptx"
+                if is_pptx and kind != "lecture":
+                    self.error("source.pptx_kind", f"{context}: schema 2 supports PPTX lecture sources only.")
+                count_field = "slide_count" if is_pptx else "page_count"
+                wrong_field = "page_count" if is_pptx else "slide_count"
+                if wrong_field in record:
+                    self.error("source.locator_format", f"{context}: {wrong_field} is invalid for this source format.")
+                page_count = record.get(count_field)
                 if not isinstance(page_count, int) or isinstance(page_count, bool):
-                    self.error("manifest.page_count", f"{context}: page_count must be an integer.")
+                    self.error("manifest.page_count", f"{context}: {count_field} must be an integer.")
                 elif document is not None and page_count != document.page_count:
                     self.error(
                         "manifest.page_count_stale",
-                        f"{context}: page_count {page_count} does not match current {document.page_count}.",
+                        f"{context}: {count_field} {page_count} does not match current {document.page_count}.",
                     )
             self.registry[source_id] = record
 
@@ -805,6 +822,8 @@ class Validator:
             "anchor",
             "note",
         }
+        if self.schema_version == 2 and kind == "lecture":
+            resolved_fields.add("slide_number")
         if kind == "textbook":
             resolved_fields.update(
                 {"chapter", "section", "section_status", "section_note", "printed_page"}
@@ -826,7 +845,12 @@ class Validator:
         document = self.document(path, context)
         if document is None:
             return str(kind), covers
-        page_number = self.validate_page(document, reference.get("pdf_page"), context)
+        is_pptx = isinstance(document, PptxDocument)
+        forbidden_locators = {"pdf_page", "page_label", "printed_page"} if is_pptx else {"slide_number"}
+        if forbidden_locators & set(reference):
+            self.error("reference.locator_format", f"{context}: locator fields disagree with the native source format.")
+        field = "slide_number" if is_pptx else "pdf_page"
+        page_number = self.validate_page(document, reference.get(field), context)
         self.validate_hash(path, reference.get("sha256"), context)
         if page_number is None:
             return str(kind), covers
@@ -848,7 +872,7 @@ class Validator:
             if normalize_text(anchor) not in normalize_text(page_text):
                 self.error(
                     "reference.anchor_missing",
-                    f"{context}: anchor not found on PDF page {page_number}: {anchor!r}.",
+                    f"{context}: anchor not found at {field} {page_number}: {anchor!r}.",
                 )
 
         actual_label = document[page_number - 1].get_label().strip()
@@ -862,6 +886,8 @@ class Validator:
         locator = reference.get("locator")
         if kind == "lecture" and (not isinstance(locator, str) or not locator.strip()):
             self.error("reference.locator", f"{context}: lecture locator is required.")
+        elif is_pptx and locator != f"Slide {page_number}":
+            self.error("reference.locator", f"{context}: PPTX locator must be 'Slide {page_number}'.")
         elif locator:
             page_toc = toc_title(document.get_toc(simple=True), page_number)
             if page_toc and normalize_text(str(locator)) not in normalize_text(page_toc):
@@ -940,7 +966,8 @@ class Validator:
                         )
                     else:
                         declared_number = declared_match.group(1)
-                        declared_title = normalize_text(declared_match.group(2))
+                        # Checkpoint children can repeat a section number; the active
+                        # parent section remains a valid, more useful citation title.
                         active_sections = [
                             normalize_text(title)
                             for title in active.values()
@@ -961,7 +988,8 @@ class Validator:
                                 )
                             elif (
                                 declared_number != active_match.group(1)
-                                or declared_title != normalize_text(active_match.group(2))
+                                or normalize_text(f"{declared_number}: {declared_match.group(2)}")
+                                not in active_sections
                             ):
                                 self.error(
                                     "reference.section_page",
@@ -1072,8 +1100,11 @@ def validate_notebook_metadata(
     if not isinstance(icp, dict):
         validator.error("notebook.icp", f"{label}: missing metadata.icp.")
         return
-    if icp.get("schema_version") != 1:
-        validator.error("notebook.schema_version", f"{label}: schema_version must be 1.")
+    version = icp.get("schema_version")
+    if type(version) is not int or version not in SUPPORTED_SCHEMA_VERSIONS:
+        validator.error("notebook.schema_version", f"{label}: schema_version must be 1 or 2.")
+    elif version != manifest.get("schema_version"):
+        validator.error("notebook.schema_version", f"{label}: schema_version must match source-map.json.")
     if not isinstance(icp.get("recitation_id"), str) or not icp.get("recitation_id"):
         validator.error("notebook.recitation_id", f"{label}: recitation_id must be a non-empty string.")
     if icp.get("variant") != expected_variant:
@@ -1167,10 +1198,12 @@ def validate_visible_reference(
                 f"{context}: unresolved mapping must visibly say 'No direct coverage located'.",
             )
         return
+    slide_number = reference.get("slide_number")
     page_number = reference.get("pdf_page")
-    page_tokens = (f"pdf p. {page_number}", f"pdf page {page_number}")
+    page_tokens = ((f"slide {slide_number}",) if slide_number is not None else
+                   (f"pdf p. {page_number}", f"pdf page {page_number}"))
     if not any(normalize_text(token) in normalized for token in page_tokens):
-        validator.error("exercise.visible_page", f"{context}: visible block omits PDF page {page_number}.")
+        validator.error("exercise.visible_page", f"{context}: visible block omits native locator {page_tokens[0]}.")
     if kind == "lecture" and reference.get("locator"):
         if normalize_text(str(reference["locator"])) not in normalized:
             validator.error(

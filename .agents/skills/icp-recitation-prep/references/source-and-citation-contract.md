@@ -11,7 +11,7 @@ The repository source of truth is the material currently stored under these dire
 - `textbook/`: assigned textbook editions
 - `syllabus/`: optional schedules or course policies when present
 
-Re-scan on every preparation run. Match extensions case-insensitively and do not hardcode the number of weeks. The bundled `scripts/course_sources.py` helper currently inventories and validates PDFs. Detect non-PDF course files separately and report them explicitly; do not silently ignore them or force a PDF locator onto them. A non-PDF source needs a format-specific locator and validator extension before it can support a classroom-ready mapping.
+Re-scan on every preparation run. Match extensions case-insensitively and do not hardcode the number of weeks. The bundled `scripts/course_sources.py` helper inventories and searches PDFs and PPTX decks. Manifest version 2 supports native PPTX lecture citations as specified in the bundle manifest contract. Detect other source formats separately; do not silently ignore them or force a PDF locator onto them. Unsupported formats need a format-specific locator and validator extension before they can support a classroom-ready mapping.
 
 When saving an inventory with `--output`, use a `.json` path outside all immutable source directories. The helper rejects source-directory targets and symlink output files even with `--force`, and replaces an approved JSON output atomically.
 
@@ -22,6 +22,8 @@ Do not infer an authoritative relationship from filenames alone. A matching week
 ## Locator semantics
 
 All `pdf_page` values are one-based physical PDF pages.
+
+For a native PPTX lecture in schema 2, use one-based `slide_number` in presentation order and `locator: "Slide N"`, along with the original file's path, SHA-256, slide title, anchor, status, and covers. Never use PDF page fields for PPTX. Visible references say `Lecture: Lecture 02, Slide N (PPTX)` and show the mapping status. The validator checks the anchor against that slide's text; image-only evidence needs visual inspection. All remaining rules below apply to PDFs unchanged.
 
 For a lecture reference, record:
 

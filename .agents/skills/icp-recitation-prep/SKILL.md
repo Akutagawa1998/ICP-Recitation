@@ -14,7 +14,7 @@ Produce a classroom-ready notebook pair grounded in the repository's current cou
 3. Read [references/bundle-manifest-contract.md](references/bundle-manifest-contract.md) for a full build or audit.
 4. Read [references/notebook-contract.md](references/notebook-contract.md) before authoring, deriving, or reviewing notebooks.
 5. For a full recitation build, use the project custom agents when available:
-   - Delegate source and exercise mapping to `icp_source_mapper`; require a complete, schema-valid v1 `source-map.json` payload, not a prose summary or partial map.
+   - Delegate source and exercise mapping to `icp_source_mapper`; require a complete, schema-valid `source-map.json` payload (v1 for PDFs, v2 for native PPTX lecture references), not a prose summary or partial map. If a configured agent is limited to v1, it may return verified PPTX evidence separately for the main agent to persist in v2 without changing its meaning.
    - Delegate notebook implementation to `icp_notebook_author` after the source map is stable.
    - Delegate independent final review to `icp_notebook_reviewer` after both notebooks exist.
    Keep the main agent responsible for resolving disagreements and delivering the final artifacts.
@@ -42,7 +42,7 @@ Produce a classroom-ready notebook pair grounded in the repository's current cou
   - at least one precise lecture page or slide; and
   - at least one precise textbook chapter and section when the textbook exposes sections.
 - Store the approved machine-readable mapping as `source-map.json` and its human-readable companion as `source-map.md`, without changing the mapper's meaning or status labels.
-- Require the mapping payload to satisfy the complete version-1 manifest contract, including the source inventory, lecture selection evidence, full ordered prompts, prompt provenance fields, concepts, and references.
+- Require the mapping payload to satisfy the complete manifest contract (v1 or v2), including the source inventory, lecture selection evidence, full ordered prompts, prompt provenance fields, concepts, and references.
 - Every non-unresolved reference must include a short anchor that appears on the cited source page plus its exact locator and source hash. If no trustworthy mapping exists, label the reference `unresolved`, include a reason, and do not invent page fields.
 
 ### 3. Author the instructor notebook

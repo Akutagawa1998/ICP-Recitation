@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inventory and search course PDFs with stable, one-based page locators."""
+"""Inventory and search course PDFs and PPTX decks with native locators."""
 
 from __future__ import annotations
 
@@ -7,12 +7,15 @@ import argparse
 import hashlib
 import json
 import os
+import posixpath
 import re
 import sys
 import tempfile
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable, Sequence
+from xml.etree import ElementTree as ET
+from zipfile import ZipFile
 
 try:
     import pymupdf as fitz
@@ -26,6 +29,72 @@ except ImportError:  # PyMuPDF historically exposed the top-level name ``fitz``.
 
 
 KNOWN_KINDS = ("lecture", "recitation", "textbook", "syllabus", "other")
+SUPPORTED_SCHEMA_VERSIONS = (1, 2)
+
+
+class PptxSlide:
+    """Read visible DrawingML paragraphs, excluding speaker notes."""
+
+    def __init__(self, xml: bytes) -> None:
+        drawing = "{http://schemas.openxmlformats.org/drawingml/2006/main}"
+        paragraphs = []
+        for paragraph in ET.fromstring(xml).iter(drawing + "p"):
+            paragraphs.append("".join(
+                (node.text or "") if node.tag == drawing + "t" else "\n"
+                for node in paragraph.iter()
+                if node.tag in {drawing + "t", drawing + "br"}
+            ))
+        self.text = "\n".join(paragraphs)
+
+    def get_text(self, mode: str = "text") -> str:
+        return self.text
+
+    def get_label(self) -> str:
+        return ""
+
+
+class PptxDocument:
+    """Minimal read interface; order comes from presentation relationships."""
+
+    def __init__(self, path: Path) -> None:
+        p = "{http://schemas.openxmlformats.org/presentationml/2006/main}"
+        r = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}"
+        with ZipFile(path) as archive:
+            relations = ET.fromstring(archive.read("ppt/_rels/presentation.xml.rels"))
+            targets = {
+                item.attrib["Id"]: item.attrib["Target"]
+                for item in relations
+                if item.get("TargetMode") != "External"
+            }
+            presentation = ET.fromstring(archive.read("ppt/presentation.xml"))
+            self.slides = []
+            for item in presentation.findall(f"{p}sldIdLst/{p}sldId"):
+                target = targets[item.attrib[r + "id"]]
+                member = (target.lstrip("/") if target.startswith("/")
+                          else posixpath.normpath(posixpath.join("ppt", target)))
+                self.slides.append(PptxSlide(archive.read(member)))
+        self.page_count = len(self.slides)  # Internal reader interface, not a PDF locator.
+
+    def __getitem__(self, index: int) -> PptxSlide:
+        return self.slides[index]
+
+    def get_toc(self, simple: bool = True) -> list[list[object]]:
+        return [[1, f"Slide {index + 1}", index + 1] for index in range(self.page_count)]
+
+    def close(self) -> None:
+        pass
+
+    def __enter__(self) -> PptxDocument:
+        return self
+
+    def __exit__(self, *args: object) -> None:
+        self.close()
+
+
+def open_source_document(path: Path) -> fitz.Document | PptxDocument:
+    return PptxDocument(path) if path.suffix.casefold() == ".pptx" else fitz.open(path)
+
+
 KIND_DIRECTORIES = {
     "lecture": {"lecture", "lectures", "lec"},
     "recitation": {"recitation", "recitations", "recitaion", "rec"},
@@ -111,14 +180,14 @@ def find_sources(
     root = root.resolve()
     sources: list[Source] = []
     for path in root.rglob("*"):
-        if not path.is_file() or path.suffix.casefold() != ".pdf":
+        if not path.is_file() or path.suffix.casefold() not in {".pdf", ".pptx"}:
             continue
         resolved = path.resolve()
         try:
             relative = resolved.relative_to(root)
         except ValueError:
             if diagnostics is not None:
-                diagnostics.append(f"Skipping PDF symlink outside repository root: {path}")
+                diagnostics.append(f"Skipping source symlink outside repository root: {path}")
             continue
         if any(part in {".git", ".ipynb_checkpoints", ".cache"} for part in relative.parts):
             continue
@@ -136,7 +205,7 @@ def find_sources(
     return sorted(sources, key=lambda source: natural_key(source.relative_path))
 
 
-def page_label(document: fitz.Document, page_number: int) -> str | None:
+def page_label(document: fitz.Document | PptxDocument, page_number: int) -> str | None:
     label = document[page_number - 1].get_label().strip()
     return label or None
 
@@ -152,7 +221,7 @@ def toc_title(toc: Sequence[Sequence[object]], page_number: int) -> str | None:
 
 
 def source_inventory(source: Source, include_hash: bool) -> dict[str, object]:
-    with fitz.open(source.path) as document:
+    with open_source_document(source.path) as document:
         labels = [document[index].get_label().strip() for index in range(document.page_count)]
         nonempty_labels = [label for label in labels if label]
         record: dict[str, object] = {
@@ -165,12 +234,14 @@ def source_inventory(source: Source, include_hash: bool) -> dict[str, object]:
             "first_page_label": nonempty_labels[0] if nonempty_labels else None,
             "last_page_label": nonempty_labels[-1] if nonempty_labels else None,
         }
+    if source.path.suffix.casefold() == ".pptx":
+        record["slide_count"] = record.pop("page_count")
     if include_hash:
         record["sha256"] = sha256_file(source.path)
     return record
 
 
-def collapsed_page_text(document: fitz.Document, page_index: int) -> str:
+def collapsed_page_text(document: fitz.Document | PptxDocument, page_index: int) -> str:
     return " ".join(document[page_index].get_text("text").split())
 
 
@@ -194,7 +265,7 @@ def search_source(
     match_mode: str,
 ) -> Iterable[dict[str, object]]:
     normalized_queries = [normalize_text(query) for query in queries]
-    with fitz.open(source.path) as document:
+    with open_source_document(source.path) as document:
         toc = document.get_toc(simple=True)
         for page_index in range(document.page_count):
             text = collapsed_page_text(document, page_index)
@@ -208,7 +279,7 @@ def search_source(
                 "source_id": source.source_id,
                 "kind": source.kind,
                 "path": source.relative_path,
-                "pdf_page": page_number,
+                ("slide_number" if isinstance(document, PptxDocument) else "pdf_page"): page_number,
                 "page_label": page_label(document, page_number),
                 "toc_title": toc_title(toc, page_number),
                 "text_chars": len(text),
@@ -273,16 +344,18 @@ def write_or_print(
 
 def print_inventory_text(records: Sequence[dict[str, object]]) -> None:
     if not records:
-        print("No PDF sources found.")
+        print("No PDF or PPTX sources found.")
         return
     for record in records:
         hash_suffix = f" sha256={record['sha256']}" if "sha256" in record else ""
         labels = ""
         if record["first_page_label"] or record["last_page_label"]:
             labels = f" labels={record['first_page_label']}..{record['last_page_label']}"
+        count = (f"slides={record['slide_count']}" if "slide_count" in record
+                 else f"pages={record['page_count']}")
         print(
             f"{record['source_id']} [{record['kind']}] {record['path']} "
-            f"pages={record['page_count']} toc={record['toc_entries']}{labels}{hash_suffix}"
+            f"{count} toc={record['toc_entries']}{labels}{hash_suffix}"
         )
 
 
@@ -293,7 +366,9 @@ def print_search_text(matches: Sequence[dict[str, object]]) -> None:
     for match in matches:
         label = f" label={match['page_label']}" if match["page_label"] else ""
         title = f" title={match['toc_title']}" if match["toc_title"] else ""
-        print(f"{match['path']} PDF p.{match['pdf_page']}{label}{title}")
+        locator = (f"Slide {match['slide_number']}" if "slide_number" in match
+                   else f"PDF p.{match['pdf_page']}")
+        print(f"{match['path']} {locator}{label}{title}")
         print(f"  {match['excerpt']}")
 
 
@@ -301,7 +376,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
 
-    inventory = subparsers.add_parser("inventory", help="List discovered PDF sources.")
+    inventory = subparsers.add_parser("inventory", help="List discovered PDF and PPTX sources.")
     inventory.add_argument("--root", type=Path, default=Path.cwd())
     inventory.add_argument("--scope", action="append", choices=KNOWN_KINDS)
     inventory.add_argument("--hash", action="store_true", help="Include SHA-256 hashes.")
@@ -309,7 +384,7 @@ def build_parser() -> argparse.ArgumentParser:
     inventory.add_argument("--output", type=Path, help="Write JSON output to a new file.")
     inventory.add_argument("--force", action="store_true", help="Replace --output if it exists.")
 
-    search = subparsers.add_parser("search", help="Search extracted PDF page text.")
+    search = subparsers.add_parser("search", help="Search PDF pages and PPTX slides.")
     search.add_argument("--root", type=Path, default=Path.cwd())
     search.add_argument("--query", action="append", required=True, help="Term or phrase; repeatable.")
     search.add_argument("--match", choices=("all", "any"), default="all")
@@ -341,7 +416,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             duplicates.setdefault(str(record["source_id"]), []).append(str(record["path"]))
         duplicate_ids = {key: value for key, value in duplicates.items() if len(value) > 1}
         payload: dict[str, object] = {
-            "schema_version": 1,
+            "schema_version": 2,
             "root": root.as_posix(),
             "sources": records,
             "duplicate_source_ids": duplicate_ids,
@@ -369,7 +444,7 @@ def main(argv: Sequence[str] | None = None) -> int:
             matches = matches[: args.max_results]
             break
     payload = {
-        "schema_version": 1,
+        "schema_version": 2,
         "root": root.as_posix(),
         "queries": args.query,
         "match": args.match,

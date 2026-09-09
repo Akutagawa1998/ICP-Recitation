@@ -21,6 +21,7 @@ except ImportError as exc:  # pragma: no cover - dependency failure path
     ) from exc
 
 
+SUPPORTED_SCHEMA_VERSIONS = (1, 2)
 REMOVAL_TAGS = {"solution-only", "instructor-only"}
 ALLOWED_NOTEBOOK_ICP = {"schema_version", "recitation_id", "title", "variant", "source_map"}
 ALLOWED_PROMPT_ICP = {"exercise_id", "role", "concepts", "recitation_source", "references"}
@@ -190,8 +191,9 @@ def derive_notebook(instructor: nbformat.NotebookNode) -> nbformat.NotebookNode:
     icp_metadata = notebook_metadata.get("icp")
     if not isinstance(icp_metadata, dict):
         raise ValueError("Instructor notebook is missing metadata.icp.")
-    if icp_metadata.get("schema_version") != 1:
-        raise ValueError("Only metadata.icp.schema_version = 1 is supported.")
+    version = icp_metadata.get("schema_version")
+    if type(version) is not int or version not in SUPPORTED_SCHEMA_VERSIONS:
+        raise ValueError("Only metadata.icp.schema_version = 1 or 2 is supported.")
     if icp_metadata.get("variant") != "instructor":
         raise ValueError("Canonical notebook must set metadata.icp.variant to 'instructor'.")
 

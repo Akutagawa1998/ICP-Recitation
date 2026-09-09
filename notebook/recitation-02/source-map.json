@@ -1,0 +1,1355 @@
+{
+  "schema_version": 2,
+  "recitation_id": "02",
+  "title": "Recitation 02: Input, Processing, and Output",
+  "expected_exercise_count": 9,
+  "source_inventory": [
+    {
+      "source_id": "recitation-02",
+      "kind": "recitation",
+      "path": "recitation/Recitaion 02.pdf",
+      "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+      "page_count": 4
+    },
+    {
+      "source_id": "lecture-01",
+      "kind": "lecture",
+      "path": "lecture/Lecture 01.pdf",
+      "sha256": "e8d9dc65dd0f21c5f0e8c77ea2e3b96ee0f8e0dc4b7340a44ff2e825ecdb9b31",
+      "page_count": 45
+    },
+    {
+      "source_id": "lecture-02",
+      "kind": "lecture",
+      "path": "lecture/Lecture 02.pptx",
+      "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+      "slide_count": 55
+    },
+    {
+      "source_id": "gaddis-python-6e",
+      "kind": "textbook",
+      "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+      "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+      "page_count": 917
+    }
+  ],
+  "recitation_source_id": "recitation-02",
+  "lecture_selection": {
+    "candidate_source_ids": [
+      "lecture-01",
+      "lecture-02"
+    ],
+    "selected_source_ids": [
+      "lecture-02"
+    ],
+    "basis": [
+      {
+        "kind": "user",
+        "evidence": "The user explicitly requested a Recitation 2 notebook based on lecture 2 and recitation 2."
+      },
+      {
+        "kind": "content",
+        "source_ids": [
+          "lecture-01",
+          "lecture-02",
+          "recitation-02"
+        ],
+        "evidence": "Lecture 02 Slide 1 and Recitation 02 PDF p.1 share Input, Processing, and Output. Lecture 02 Slides 14–25, 29–33, 39–53 cover the numeric types, operators, assignments, input/output, and formatting in Recitation 02 Exercises 1–9. Slide 55 explicitly assigns recitation 02. Lecture 01 PDF pp.41–45 introduces execution modes and assigns recitation 01, so it is a previous-lecture candidate rather than the selected lecture. Selected lecture-02 SHA-256: 48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28"
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "exercise_id": "R02-E01",
+      "order": 1,
+      "prompt": "Exercises 1 – Numeric values and operations \nEvaluate the following expressions and specify their type.  \n5 * -6 \n \n34 / 10 \n \n(34 // 10) * (1.0 + 2) \n \n34 % 10 \n \n23 % 4.0 \n \n25 + 30 / 6 \n \n-7 % 3 \n \n100 - 25 * 3 % 4",
+      "original_prompt_sha256": "378f942f2a492da62f62ef1b679ba6e4281eab209345e715dfee8c7ff97b8976",
+      "subparts": [],
+      "concepts": [
+        "numeric result types",
+        "true and floor division",
+        "remainder operation",
+        "negative-operand remainder",
+        "operator precedence"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 1,
+        "item_label": "Exercise 1",
+        "anchor": "Numeric values and operations"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric result types"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Mixing numeric types",
+          "anchor": "mix numeric types during arithmetic operations",
+          "slide_number": 14,
+          "locator": "Slide 14"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "true and floor division",
+            "remainder operation"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operators on int and float",
+          "anchor": "return the remainder of the division",
+          "slide_number": 19,
+          "locator": "Slide 19"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "negative-operand remainder"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operators on int and float",
+          "anchor": "Modulo Division (%)",
+          "slide_number": 20,
+          "locator": "Slide 20",
+          "note": "This slide includes a negative-dividend modulo example; its separate 10 // 0.25 output contains a typo."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "operator precedence"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operators Precedence",
+          "anchor": "Parentheses tell Python to do these operations first.",
+          "slide_number": 22,
+          "locator": "Slide 22"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric result types"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Mixed-Type Expressions and Data Type Conversion",
+          "anchor": "Mixed-Type Expressions and Data Type Conversion",
+          "pdf_page": 91,
+          "printed_page": "90",
+          "page_label": "90",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations",
+          "note": "Read the general mixed-type rules together with the explicit / exception on PDF p.84."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "true and floor division"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Floating-Point and Integer Division",
+          "anchor": "Python has two different division operators",
+          "pdf_page": 84,
+          "printed_page": "83",
+          "page_label": "83",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "remainder operation"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "The Remainder Operator",
+          "anchor": "The Remainder Operator",
+          "pdf_page": 88,
+          "printed_page": "87",
+          "page_label": "87",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "negative-operand remainder"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Floating-Point and Integer Division",
+          "anchor": "when the result is negative",
+          "pdf_page": 84,
+          "printed_page": "83",
+          "page_label": "83",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations",
+          "note": "Teaches negative floor division, a prerequisite for interpreting negative modulo; does not explicitly demonstrate negative-dividend %."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "operator precedence"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Operator Precedence",
+          "anchor": "operators execute from left to right",
+          "pdf_page": 85,
+          "printed_page": "84",
+          "page_label": "84",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E02",
+      "order": 2,
+      "prompt": "Exercise 2 - Looking for Prints  \nWrite out the output of each line in the space provided. If the line results in an error, \nwrite \"error\". \nprint(5 + \"5\")  \n \n \n    print(5 + int(\"5\")) \nprint(str(5) + int(\"5\"))    \n    print(15 % 2) \nprint(\"hey\" + \"yo\")  \n \n    print(2 * \"go\") \nprint(\"yo\" * 4.0) \n \n \n    print(\"hi\" + there) \nprint(\"go\" * 2 + \"!\" * 2)",
+      "original_prompt_sha256": "7eacb7d81f04aba9e31bc0c8603591b153da093a441827f88d62281de5ef771f",
+      "subparts": [],
+      "concepts": [
+        "int conversion",
+        "str conversion",
+        "numeric remainder",
+        "string concatenation and operand types",
+        "string repetition",
+        "integer repetition count",
+        "unassigned variable names"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 1,
+        "item_label": "Exercise 2",
+        "anchor": "Looking for Prints"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "int conversion",
+            "str conversion"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Data Type Conversion",
+          "anchor": "int(), float(), and str()",
+          "slide_number": 15,
+          "locator": "Slide 15"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric remainder"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operators on int and float",
+          "anchor": "return the remainder of the division",
+          "slide_number": 19,
+          "locator": "Slide 19"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "string concatenation and operand types"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operations Summary",
+          "anchor": "both operands must be a string",
+          "slide_number": 25,
+          "locator": "Slide 25"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "string repetition",
+            "integer repetition count"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operator on String",
+          "anchor": "n must be an int",
+          "slide_number": 24,
+          "locator": "Slide 24",
+          "note": "The slide directly shows both operand orders and a float-count TypeError; its separate Hello + ICP example has an incorrect displayed result."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "unassigned variable names"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Variables",
+          "anchor": "Before using any variable, it needs to be assigned",
+          "slide_number": 33,
+          "locator": "Slide 33"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "int conversion"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Reading Numbers with the input Function",
+          "anchor": "converted to an int and assigned to the hours variable",
+          "pdf_page": 79,
+          "printed_page": "78",
+          "page_label": "78",
+          "chapter": "Chapter 2",
+          "section": "2.6: Reading Input from the Keyboard"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "str conversion"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Writing and Reading Numeric Data",
+          "anchor": "Python has a built-in function named str",
+          "pdf_page": 363,
+          "printed_page": "362",
+          "page_label": "362",
+          "chapter": "Chapter 6",
+          "section": "6.1: Introduction to File Input and Output",
+          "note": "Targeted later-chapter reference for str() only; file handling is outside this recitation."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric remainder"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "The Remainder Operator",
+          "anchor": "The Remainder Operator",
+          "pdf_page": 88,
+          "printed_page": "87",
+          "page_label": "87",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "string concatenation and operand types"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "String Concatenation",
+          "anchor": "the combination of the two strings used as its operands",
+          "pdf_page": 94,
+          "printed_page": "93",
+          "page_label": "93",
+          "chapter": "Chapter 2",
+          "section": "2.8: String Concatenation"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "string repetition"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "The Repetition Operator",
+          "anchor": "The repetition operator works with strings as well",
+          "pdf_page": 501,
+          "printed_page": "500",
+          "page_label": "500",
+          "chapter": "Chapter 8",
+          "section": "8.3: Testing, Searching, and Manipulating Strings",
+          "note": "Targeted later-chapter reference for string repetition only; loops and password validation are outside this recitation."
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "integer repetition count"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "The Repetition Operator",
+          "anchor": "the operand on the right side is an integer",
+          "pdf_page": 407,
+          "printed_page": "406",
+          "page_label": "406",
+          "chapter": "Chapter 7",
+          "section": "7.2: Introduction to Lists",
+          "note": "States the integer operand requirement for sequence repetition using lists; string repetition is separately demonstrated on PDF p.501."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "unassigned variable names"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Multiple Assignment",
+          "anchor": "You cannot use a variable until you have assigned a value",
+          "pdf_page": 69,
+          "printed_page": "68",
+          "page_label": "68",
+          "chapter": "Chapter 2",
+          "section": "2.5: Variables"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E03",
+      "order": 3,
+      "prompt": "Exercises 3 - Escape sequence \nWrite the output, or Error if an error occurs. \nprint(\"Welcome to \\'ICP\\'\") \n \nprint(\"Welcome to \"ICP\") \n \nprint('Welcome to \"ICP') \nprint('Welcome to \\\"ICP') \n \nprint(\"Welcome to \\\"ICP\\\"\") \n \nprint(\"Today is\\t\\\"Tuesday\\\"\\nWelcome to\\t\\\"ICP\\\"\")",
+      "original_prompt_sha256": "e79d82d859acd8972b1ab5c90b6367053d2bcf42cb30367ecb20dff5ab9d3e65",
+      "subparts": [],
+      "concepts": [
+        "string delimiters and syntax errors",
+        "escaped quotation marks",
+        "newline and tab characters"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 1,
+        "item_label": "Exercise 3",
+        "anchor": "Escape sequence"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "string delimiters and syntax errors"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Strings",
+          "anchor": "starting and ending quotes",
+          "slide_number": 9,
+          "locator": "Slide 9"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "escaped quotation marks"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Strings",
+          "anchor": "Escape sequence can be used to obtain quote character",
+          "slide_number": 10,
+          "locator": "Slide 10"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "newline and tab characters"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Escape Sequence",
+          "anchor": "ASCII Horizontal Tab",
+          "slide_number": 11,
+          "locator": "Slide 11"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "string delimiters and syntax errors"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Strings and String Literals",
+          "anchor": "string literals must be enclosed in quote marks",
+          "pdf_page": 64,
+          "printed_page": "63",
+          "page_label": "63",
+          "chapter": "Chapter 2",
+          "section": "2.3: Displaying Output with the print Function",
+          "note": "Teaches matching delimiters and mixed quote styles; does not explicitly trace the malformed print line in this exercise."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "escaped quotation marks"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Escape Characters",
+          "anchor": "advances the output to the next horizontal tab position",
+          "pdf_page": 98,
+          "printed_page": "97",
+          "page_label": "97",
+          "chapter": "Chapter 2",
+          "section": "2.9: More About the print Function"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "newline and tab characters"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Escape Characters",
+          "anchor": "newline escape character",
+          "pdf_page": 97,
+          "printed_page": "96",
+          "page_label": "96",
+          "chapter": "Chapter 2",
+          "section": "2.9: More About the print Function"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E04",
+      "order": 4,
+      "prompt": "Exercise 4 | Variable assignment \nConsider the following variable assignments:  \n \nLeft = \"Lady\" \n \nMiddle = \"Jack\" \n \nRight = \"Ace\"  \nFigure out where the 'Lady' is (Left, Middle, Right) after running the following programs: \nLeft, Right, Middle = Left, Middle, Right \n \nLeft, Right, Middle = Middle, Right, Left \n \nLeft, Middle, Right = Middle, Right, Left \n \nLeft, Middle, Right = Middle, Right, Left \nLeft, Middle, Right = Middle, Right, Left \n \nLeft, Middle, Right = Middle, Right, Left \nLeft, Middle, Right = Middle, Right, Left \nLeft, Middle, Right = Middle, Right, Left \n \nLeft, Middle, Right = Right, Right, Right \nLeft, Middle, Right = Left, Left, Left \nLeft, Middle, Right = Middle, Middle, Middle",
+      "original_prompt_sha256": "29226a7a3ea29f2b7b05991e290b7be521bb82e994aaaa68d6d44b9e5a107268",
+      "subparts": [],
+      "concepts": [
+        "multiple assignment",
+        "old right-hand-side values before rebinding",
+        "reassignment and loss of references"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 2,
+        "item_label": "Exercise 4",
+        "anchor": "Variable assignment"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "multiple assignment"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Variables",
+          "anchor": "assign values to multiple variables in a single statement",
+          "slide_number": 33,
+          "locator": "Slide 33"
+        },
+        {
+          "kind": "lecture",
+          "status": "prerequisite",
+          "covers": [
+            "old right-hand-side values before rebinding"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "How do variables actually work?",
+          "anchor": "The expression on the right hand side is evaluated",
+          "slide_number": 29,
+          "locator": "Slide 29",
+          "note": "Teaches evaluate-then-bind for ordinary assignment; applying that order to every RHS value in a multiple assignment requires an explicit teaching step."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "reassignment and loss of references"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Reassignment of Variables",
+          "anchor": "no longer associated with the variable",
+          "slide_number": 32,
+          "locator": "Slide 32"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "multiple assignment"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Multiple Assignment",
+          "anchor": "three variable names are shown on the left side",
+          "pdf_page": 70,
+          "printed_page": "69",
+          "page_label": "69",
+          "chapter": "Chapter 2",
+          "section": "2.5: Variables"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "old right-hand-side values before rebinding"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Multiple Assignment",
+          "anchor": "assigned their respective values shown on the right side",
+          "pdf_page": 70,
+          "printed_page": "69",
+          "page_label": "69",
+          "chapter": "Chapter 2",
+          "section": "2.5: Variables",
+          "note": "Demonstrates multiple assignment of literals; does not explicitly explain taking all old RHS values before rebinding existing names."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "reassignment and loss of references"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Variable Reassignment",
+          "anchor": "it can no longer be used because it isn’t referenced by a variable",
+          "pdf_page": 72,
+          "printed_page": "71",
+          "page_label": "71",
+          "chapter": "Chapter 2",
+          "section": "2.5: Variables"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E05",
+      "order": 5,
+      "prompt": "Exercise 5 | Print arguments  \na = 5 \nprint(\"a\", a, sep=' = ') \n \na = 5 \nprint(\"a = \", a, sep=\"0000\") \n \na = 5 \nprint(\"a = \", a, sep=\"'\", end=\"'\") \n \na, b = 'b', 'a' \nprint(a, 'b', sep='>>>', end='\\t') \nprint('a', b, sep='***', end='\\n\\n') \nprint(a, b, sep='\\t')",
+      "original_prompt_sha256": "8ce3018e6903dd44d33bc3d03655acdcdcc3b1fadcb9e5d6dee4a164d9e6d2d4",
+      "subparts": [],
+      "concepts": [
+        "string literals versus variable values",
+        "print separators and endings",
+        "newline and tab characters"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 3,
+        "item_label": "Exercise 5",
+        "anchor": "Print arguments"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "string literals versus variable values"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "print function",
+          "anchor": "print() can display strings, numbers, variables, and expressions.",
+          "slide_number": 44,
+          "locator": "Slide 44"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "print separators and endings"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "print – sep and end arguments",
+          "anchor": "sep and end arguments",
+          "slide_number": 46,
+          "locator": "Slide 46"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "newline and tab characters"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Escape Sequence",
+          "anchor": "ASCII Horizontal Tab",
+          "slide_number": 11,
+          "locator": "Slide 11"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "string literals versus variable values"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Displaying Multiple Items with the print Function",
+          "anchor": "The first argument is the string literal",
+          "pdf_page": 72,
+          "printed_page": "71",
+          "page_label": "71",
+          "chapter": "Chapter 2",
+          "section": "2.5: Variables"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "print separators and endings"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "More About the print Function",
+          "anchor": "Specifying an Item Separator",
+          "pdf_page": 96,
+          "printed_page": "95",
+          "page_label": "95",
+          "chapter": "Chapter 2",
+          "section": "2.9: More About the print Function"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "newline and tab characters"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Escape Characters",
+          "anchor": "newline escape character",
+          "pdf_page": 97,
+          "printed_page": "96",
+          "page_label": "96",
+          "chapter": "Chapter 2",
+          "section": "2.9: More About the print Function"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E06",
+      "order": 6,
+      "prompt": "Exercise 6 | String formatting \nprint(f\"{12:8d}\") \n \nprint(f\"{'12':0>8}\") \n \nnum = 12.34567890 \nprint(f\"{num:8.3f}\") \n \nprint(f\"{12.34567890:<08.3f}\") \n \nname = 'dolphin' \nres1 = f'{name:->10}' \nres2 = f'{name:<10.3}' \nprint(res1) \nprint(res2)",
+      "original_prompt_sha256": "f47cd1946b5cb9e861b94c0df29fe5675f0b77d489b0f91fb3518b59818b3002",
+      "subparts": [],
+      "concepts": [
+        "f-string placeholders",
+        "numeric field width and precision",
+        "alignment",
+        "custom fill characters",
+        "string precision truncation",
+        "zero padding with explicit alignment"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 3,
+        "item_label": "Exercise 6",
+        "anchor": "String formatting"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "f-string placeholders"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string",
+          "anchor": "Inside {}, we can put variables, expressions, and formatting instructions.",
+          "slide_number": 48,
+          "locator": "Slide 48"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric field width and precision"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string - number formatting",
+          "anchor": "f-string - number formatting",
+          "slide_number": 53,
+          "locator": "Slide 53"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "alignment",
+            "custom fill characters"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string – string formatting",
+          "anchor": "Padding and Aligning Strings",
+          "slide_number": 51,
+          "locator": "Slide 51"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "string precision truncation"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string – string formatting",
+          "anchor": "Truncating and Padding Strings",
+          "slide_number": 52,
+          "locator": "Slide 52"
+        },
+        {
+          "kind": "lecture",
+          "status": "prerequisite",
+          "covers": [
+            "zero padding with explicit alignment"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string - number formatting",
+          "anchor": "f-string - number formatting",
+          "slide_number": 53,
+          "locator": "Slide 53",
+          "note": "Shows zero-padded numeric fields without an explicit alignment character. Slide 51 supplies alignment background; the combination <08.3f is not directly demonstrated."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "f-string placeholders"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Displaying Formatted Output with F-strings",
+          "anchor": "An f-string can contain placeholders",
+          "pdf_page": 99,
+          "printed_page": "98",
+          "page_label": "98",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric field width and precision"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Rounding Floating-Point Numbers",
+          "anchor": "a precision designator that indicates the number",
+          "pdf_page": 101,
+          "printed_page": "100",
+          "page_label": "100",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric field width and precision"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Specifying a Minimum Field Width",
+          "anchor": "Specifying a Minimum Field Width",
+          "pdf_page": 103,
+          "printed_page": "102",
+          "page_label": "102",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "alignment"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Aligning Values",
+          "anchor": "left-aligns the variable’s value in a field",
+          "pdf_page": 106,
+          "printed_page": "105",
+          "page_label": "105",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "custom fill characters",
+            "zero padding with explicit alignment"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Aligning Values",
+          "anchor": "left-aligns the variable’s value in a field",
+          "pdf_page": 106,
+          "printed_page": "105",
+          "page_label": "105",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings",
+          "note": "Teaches alignment and width, but not arbitrary fill characters, zero padding, or zero padding combined with explicit alignment."
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "string precision truncation"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Formatting Values",
+          "anchor": "the placeholder and the format specifier are separated by a colon",
+          "pdf_page": 100,
+          "printed_page": "99",
+          "page_label": "99",
+          "chapter": "Chapter 2",
+          "section": "2.10: Displaying Formatted Output with F-strings",
+          "note": "Teaches the format-specifier grammar; this textbook section does not explain string precision as truncation."
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E07",
+      "order": 7,
+      "prompt": "Exercise 7 | Sales Prediction  \nA company has determined that its annual profit is typically 23 percent of total sales. \nWrite a program that asks the user to enter the projected amount of total sales, and \nthen displays the profit that will be made from that amount.",
+      "original_prompt_sha256": "a1b97d12755dca4bd5dd425c10d1c731f4cbc3211e2691bd7dad30da64f5a721",
+      "subparts": [],
+      "concepts": [
+        "numeric keyboard input",
+        "percentage calculation",
+        "displaying computed values"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 4,
+        "item_label": "Exercise 7",
+        "anchor": "Sales Prediction"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Input function",
+          "anchor": "Use conversion built-in functions: int(), float()",
+          "slide_number": 40,
+          "locator": "Slide 40"
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "percentage calculation"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "f-string",
+          "anchor": "1000.0 is 33.33333333333333% of 3000",
+          "slide_number": 49,
+          "locator": "Slide 49",
+          "note": "The example relates a fractional multiplier to a percentage; its printed f-string quotes and :2f explanatory label have typos."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "displaying computed values"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "print function",
+          "anchor": "print() can display strings, numbers, variables, and expressions.",
+          "slide_number": 44,
+          "locator": "Slide 44"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Reading Numbers with the input Function",
+          "anchor": "pay_rate = float(input",
+          "pdf_page": 79,
+          "printed_page": "78",
+          "page_label": "78",
+          "chapter": "Chapter 2",
+          "section": "2.6: Reading Input from the Keyboard"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "percentage calculation",
+            "displaying computed values"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Calculating a Percentage",
+          "anchor": "we multiply the original price by 20 percent",
+          "pdf_page": 83,
+          "printed_page": "82",
+          "page_label": "82",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E08",
+      "order": 8,
+      "prompt": "Exercise 8 | Celsius to Fahrenheit Temperature Converter \nWrite a program that converts Celsius temperatures to Fahrenheit temperatures. The \nformula is as follows: \n𝐹= 9\n5 𝐶+ 32 \nThe program should ask the user to enter a temperature in Celsius, then display the \ntemperature converted to Fahrenheit.",
+      "original_prompt_sha256": "b25b2f44a48deda52af9e77e6efe9f21c480168a95d6ad413b31b84d2829536b",
+      "subparts": [],
+      "concepts": [
+        "numeric keyboard input",
+        "translating a mathematical formula",
+        "displaying computed values"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 4,
+        "item_label": "Exercise 8",
+        "anchor": "Celsius to Fahrenheit Temperature Converter"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Input function",
+          "anchor": "Use conversion built-in functions: int(), float()",
+          "slide_number": 40,
+          "locator": "Slide 40"
+        },
+        {
+          "kind": "lecture",
+          "status": "prerequisite",
+          "covers": [
+            "translating a mathematical formula"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Operators on int and float",
+          "anchor": "Operators on int and float",
+          "slide_number": 19,
+          "locator": "Slide 19",
+          "note": "Teaches the arithmetic operators needed to implement the supplied formula, but does not teach Celsius conversion or the translation of mathematical notation."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "displaying computed values"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "print function",
+          "anchor": "print() can display strings, numbers, variables, and expressions.",
+          "slide_number": 44,
+          "locator": "Slide 44"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Reading Numbers with the input Function",
+          "anchor": "pay_rate = float(input",
+          "pdf_page": 79,
+          "printed_page": "78",
+          "page_label": "78",
+          "chapter": "Chapter 2",
+          "section": "2.6: Reading Input from the Keyboard"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "translating a mathematical formula"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Converting Math Formulas to Programming Statements",
+          "anchor": "Converting Math Formulas to Programming Statements",
+          "pdf_page": 89,
+          "printed_page": "88",
+          "page_label": "88",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "displaying computed values"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Calculating a Percentage",
+          "anchor": "statement to display the sale price",
+          "pdf_page": 83,
+          "printed_page": "82",
+          "page_label": "82",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        }
+      ]
+    },
+    {
+      "exercise_id": "R02-E09",
+      "order": 9,
+      "prompt": "Exercise 9 | Ingredient Adjuster   \nA cookie recipe calls for the following ingredients:  \n1) 1.5 cups of sugar \n2) 1 cup of butter \n3) 2.75 cups of flour  \nThe recipe produces 48 cookies with this amount of the ingredients. \nWrite a program that asks the user how many cookies he or she wants to make, and \nthen displays the number of cups of each ingredient needed for the specified number of \ncookies.",
+      "original_prompt_sha256": "27c59be46e04ee90c94483845ca1978894927958decc3d65898cc2e83b8b5fb6",
+      "subparts": [
+        {
+          "subpart_id": "R02-E09-P01",
+          "label": "1)",
+          "prompt": "1) 1.5 cups of sugar",
+          "original_prompt_sha256": "5ea13840264a0390b1f1aef7e7916a2fd8801349d8e8a565191d0b262f7cc53a"
+        },
+        {
+          "subpart_id": "R02-E09-P02",
+          "label": "2)",
+          "prompt": "2) 1 cup of butter",
+          "original_prompt_sha256": "81f94942731e9a97f93df7d45493cb03f72eb953dd43a67790939dcb8e4aff14"
+        },
+        {
+          "subpart_id": "R02-E09-P03",
+          "label": "3)",
+          "prompt": "3) 2.75 cups of flour  \nThe recipe produces 48 cookies with this amount of the ingredients. \nWrite a program that asks the user how many cookies he or she wants to make, and \nthen displays the number of cups of each ingredient needed for the specified number of \ncookies.",
+          "original_prompt_sha256": "558f8a2da047d024eecb66c343b3e24d95c601c6aa21e258aa287c6a850d5def"
+        }
+      ],
+      "concepts": [
+        "numeric keyboard input",
+        "proportional ingredient scaling",
+        "displaying computed values"
+      ],
+      "recitation_source": {
+        "source_id": "recitation-02",
+        "path": "recitation/Recitaion 02.pdf",
+        "sha256": "1f5abeb0607bd7bb4327d458816d10aedc8ebf25ddbe5908453159fd55aa5b0d",
+        "pdf_page": 4,
+        "item_label": "Exercise 9",
+        "anchor": "Ingredient Adjuster"
+      },
+      "references": [
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "Input function",
+          "anchor": "Use conversion built-in functions: int(), float()",
+          "slide_number": 40,
+          "locator": "Slide 40"
+        },
+        {
+          "kind": "lecture",
+          "status": "prerequisite",
+          "covers": [
+            "proportional ingredient scaling"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "You Try it!",
+          "anchor": "buy different numbers of notebooks",
+          "slide_number": 36,
+          "locator": "Slide 36",
+          "note": "Uses price-times-quantity as proportional calculation background; it does not derive scaling from a 48-cookie reference recipe."
+        },
+        {
+          "kind": "lecture",
+          "status": "direct",
+          "covers": [
+            "displaying computed values"
+          ],
+          "source_id": "lecture-02",
+          "path": "lecture/Lecture 02.pptx",
+          "sha256": "48546c643b31a6784eae8fdfb3288f3839098200d5a313889b22558a6b7f1e28",
+          "title": "print function",
+          "anchor": "print() can display strings, numbers, variables, and expressions.",
+          "slide_number": 44,
+          "locator": "Slide 44"
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "numeric keyboard input"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Reading Numbers with the input Function",
+          "anchor": "hours = int(input",
+          "pdf_page": 79,
+          "printed_page": "78",
+          "page_label": "78",
+          "chapter": "Chapter 2",
+          "section": "2.6: Reading Input from the Keyboard"
+        },
+        {
+          "kind": "textbook",
+          "status": "prerequisite",
+          "covers": [
+            "proportional ingredient scaling"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Converting Math Formulas to Programming Statements",
+          "anchor": "Converting Math Formulas to Programming Statements",
+          "pdf_page": 89,
+          "printed_page": "88",
+          "page_label": "88",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations",
+          "note": "Teaches multiplication, division, and formula translation, but does not derive the recipe scaling factor. The matching original textbook exercise is on PDF p.147, printed p.146."
+        },
+        {
+          "kind": "textbook",
+          "status": "direct",
+          "covers": [
+            "displaying computed values"
+          ],
+          "source_id": "gaddis-python-6e",
+          "path": "textbook/Starting Out With Python -- Revel 6th Edition (Tony Gaddis).pdf",
+          "sha256": "8f004ab35661ad80e0c4324bc0b0caa111e5f5ec9295192fe340a71aa76a270c",
+          "title": "Calculating a Percentage",
+          "anchor": "statement to display the sale price",
+          "pdf_page": 83,
+          "printed_page": "82",
+          "page_label": "82",
+          "chapter": "Chapter 2",
+          "section": "2.7: Performing Calculations"
+        }
+      ]
+    }
+  ]
+}

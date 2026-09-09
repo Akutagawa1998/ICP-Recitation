@@ -38,6 +38,8 @@ Both notebooks must contain:
 
 The derived notebook changes only `metadata.icp.variant` to `student`. Use strings for recitation IDs so leading zeros are preserved.
 
+Use `schema_version: 2` in both notebooks when the manifest uses native PPTX lecture references. The notebook and manifest versions must match. Version-1 PDF bundles remain supported, and the same derivation, solution tagging, and execution rules apply to both versions.
+
 ## Required teaching sequence
 
 Use this order unless the source material clearly calls for a different flow:

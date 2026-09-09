@@ -16,7 +16,18 @@ materials/recitation-NN/
 
 The instructor and student notebooks set `metadata.icp.source_map` to `source-map.json`.
 
-The validator rejects a different manifest basename for classroom bundles. Version-1 objects also reject unknown fields; extend the contract, derivation, and validator together under a new schema version rather than hiding extra payloads in metadata.
+The validator rejects a different manifest basename for classroom bundles. Objects reject unknown fields; extend the contract, derivation, and validator together under a new schema version rather than hiding extra payloads in metadata.
+
+## Version 2: native PowerPoint lecture sources
+
+Version 1 remains supported unchanged for PDF-only bundles. Use `schema_version: 2` in the manifest and both notebooks when a lecture is a PPTX file. All version-1 fields and invariants remain in force except for the following format-specific alternatives:
+
+- A PPTX lecture inventory record has `slide_count` instead of `page_count`. Its `path` and `sha256` refer to the original PPTX, not a converted copy. Other source kinds remain PDF in version 2.
+- A resolved PPTX lecture reference has `slide_number` instead of `pdf_page`, and `locator: "Slide N"`. The slide number is the one-based position in the presentation's slide list, including hidden slides. It must not contain `pdf_page`, `page_label`, or `printed_page`.
+- A PDF inventory record still requires `page_count` and forbids `slide_count`; a PDF reference still requires `pdf_page` and forbids `slide_number`.
+- Anchors are verified against native visible DrawingML text in the specified slide. Speaker notes are excluded. Slides with important image-only content still require visual review; a rendered copy never supplies invented PDF provenance.
+
+Do not rewrite existing version-1 bundles just to adopt version 2.
 
 ## JSON schema
 

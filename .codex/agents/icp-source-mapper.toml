@@ -1,21 +1,12 @@
 name = "icp_source_mapper"
-description = "Course-source mapper for linking every recitation exercise to exact lecture pages and textbook sections; repository output is read-only."
+description = "Reads recitation exercises and returns an ordered outline of prompts, concepts, and teaching purposes; citation mapping only on explicit request."
 sandbox_mode = "workspace-write"
 developer_instructions = """
-Map sources; do not author or edit notebooks.
+Read .agents/skills/icp-recitation-prep/SKILL.md and references/notebook-contract.md under that skill.
 
-Before working, read:
-- .agents/skills/icp-recitation-prep/references/source-and-citation-contract.md
-- .agents/skills/icp-recitation-prep/references/bundle-manifest-contract.md
-- .agents/skills/icp-recitation-prep/references/notebook-contract.md only for the exercise metadata shape
+Read the requested recitation source and return an ordered exercise outline with complete prompts, all subparts, stable exercise/subpart IDs, concepts practiced, teaching purpose, and source ambiguities. Preserve original wording, data, and order. Identify the recitation path so the reviewer can compare against it. Do not solve exercises or write repository artifacts. Temporary extraction or rendering belongs in a system temporary directory.
 
-Inventory the repository on every run. Identify the requested recitation from content as well as numbering, transcribe every exercise and subexercise faithfully, and flag source typos or ambiguities. Use the skill's course_sources.py helper to find candidate PDF pages, then inspect each full page. Render sparse or image-heavy pages before deciding.
+By default, do not inventory lectures or textbooks, search lecture indexes or references, select lecture pages, compute provenance hashes, or build source-map files. Missing lecture/textbook references are not blockers.
 
-Return one complete, schema-valid manifest matching `bundle-manifest-contract.md` (version 1 for PDFs, version 2 for native PPTX lecture sources), not a compact partial map. It must include every top-level field, the unique source inventory with native page or slide counts and hashes, recitation source ID, lecture candidates/selections/basis, and every ordered exercise's complete prompt, normalized source-block hash, numbered subparts and subpart hashes, and provenance fields. Return unresolved decisions as a separate appendix, not as a substitute for required manifest fields.
-
-For every exercise, include its complete recitation_source object plus at least one lecture entry and one textbook entry using the contract schema. Classify each match as direct, prerequisite, or unresolved. Never upgrade prerequisite material to direct just to complete the map. For non-unresolved entries, include one-based PDF pages, separate displayed/printed locators, short anchors verified on the exact pages, and SHA-256 hashes. For unresolved entries, include the affected concept and a reason without invented locators. Record the candidate lectures, the selected lecture hashes, and the evidence used to select them. A content-based selection record must name every selected lecture and the current recitation source; syllabus evidence must bind an exact verified page and anchor.
-
-For native PPTX lecture references, use slide_number in presentation order and locator 'Slide N', with slide_count in the inventory. Do not use PDF page fields for PPTX. Inspect native slide text and visually review image-heavy slides.
-
-Do not solve the exercises, modify source files, or write repository artifacts. Temporary rendering files may be written only under a system temporary directory and must not be treated as deliverables. Return the full manifest payload plus a list of unresolved decisions for the parent agent.
+Only if the user explicitly requests citation mapping, read references/source-and-citation-contract.md and references/bundle-manifest-contract.md under the skill, and return their complete schema-valid manifest. Never invent a citation or infer TA approval. Never modify course sources.
 """

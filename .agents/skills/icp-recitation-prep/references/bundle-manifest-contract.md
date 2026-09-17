@@ -1,6 +1,6 @@
 # Bundle manifest contract
 
-Use this contract for every full recitation build or audit. `source-map.json` is the machine-readable handoff from source mapping to notebook authoring and validation; `source-map.md` is its human-readable companion.
+Use this contract only for explicitly requested citation mapping or maintenance of an existing cited bundle. The default workflow in `../SKILL.md` does not require a manifest, lecture selection, or textbook references. In the optional cited workflow, `source-map.json` is the machine-readable handoff and `source-map.md` is its human-readable companion. English-only notebooks and the Chinese `solution/` folder are still required for new builds.
 
 ## Required files
 

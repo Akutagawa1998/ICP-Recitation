@@ -1,6 +1,6 @@
 # Source and citation contract
 
-Use this contract whenever locating course material, mapping an exercise, or writing a visible citation.
+Use this contract only for explicitly requested lecture/textbook citation mapping or maintenance of an existing cited bundle. Do not invoke it for ordinary recitation preparation: the default workflow needs only the requested recitation source and does not require lecture indexes, page references, textbook matching, or approval for absent citations.
 
 ## Source discovery
 

@@ -1,4 +1,4 @@
 interface:
   display_name: "ICP Recitation Prep"
-  short_description: "Build paired, source-grounded Jupyter recitations"
-  default_prompt: "Use $icp-recitation-prep to prepare a cited student/instructor notebook pair for the next recitation."
+  short_description: "English notebooks with Chinese-commented solutions"
+  default_prompt: "Use $icp-recitation-prep to prepare simple English student/instructor notebooks and a solution folder with detailed Chinese line-by-line comments explaining the coverage and purpose of each exercise, without lecture or textbook reference searches."

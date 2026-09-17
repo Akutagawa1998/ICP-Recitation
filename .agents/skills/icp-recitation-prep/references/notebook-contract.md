@@ -1,97 +1,40 @@
-# Notebook contract
+# Notebook and solution contract
 
-Use this contract whenever creating, deriving, executing, or reviewing a recitation notebook pair.
+## Deliverables
 
-## Deliverables and source of truth
+Author `recitation-NN-instructor.ipynb` as the canonical solution. Derive `recitation-NN-student.ipynb` with `scripts/derive_student_notebook.py` after every instructor change. Keep a sibling `solution/` folder for detailed Chinese explanations. Source maps and lecture/textbook references are not required by default.
 
-For recitation `NN`, deliver exactly two classroom notebooks:
+## English-only, simple notebooks
 
-- `recitation-NN-instructor.ipynb`: canonical authored notebook with solutions and optional instructor notes.
-- `recitation-NN-student.ipynb`: deterministically derived question version.
+- Write all instructor Markdown and code in English: headings, prompts, notes, comments, docstrings, identifiers, displayed messages, and explanatory outputs. Student starter code must also be English. Keep Chinese explanations exclusively in `solution/`.
+- Preserve original exercise meaning, data, and order. Translate non-English source prose faithfully and disclose ambiguities. If required literal data conflicts with English-only output, flag the conflict rather than silently changing the data.
+- Use a short title and learning goals, complete exercise prompts followed by concise solutions, and an optional brief recap. Add a short concept reminder or runnable example only when needed. Do not require a lecture review, pacing table, reference blocks, or repeated explanations.
+- Use descriptive variable names, normal indentation, short statements, and course-level syntax. Avoid clever one-liners, unnecessary helpers, classes, extra libraries, and abstraction that makes a beginner's task harder to read.
+- Keep code and prose focused on the assignment. Put detailed reasoning, pitfalls, and teaching notes in the Chinese solution files.
 
-Do not maintain the two versions independently. Derive the student notebook with `.agents/skills/icp-recitation-prep/scripts/derive_student_notebook.py` after every instructor change.
+## Metadata and student derivation
 
-Keep a human-readable `source-map.md` beside them. Local images, if any, belong in a sibling `assets/` directory and use relative links.
-
-## Notebook-level metadata
-
-Both notebooks must contain:
-
-```json
-{
-  "metadata": {
-    "icp": {
-      "schema_version": 1,
-      "recitation_id": "01",
-      "title": "First steps with Python",
-      "variant": "instructor",
-      "source_map": "source-map.json"
-    },
-    "kernelspec": {
-      "name": "python3",
-      "language": "python",
-      "display_name": "Python 3"
-    }
-  }
-}
-```
-
-The derived notebook changes only `metadata.icp.variant` to `student`. Use strings for recitation IDs so leading zeros are preserved.
-
-Use `schema_version: 2` in both notebooks when the manifest uses native PPTX lecture references. The notebook and manifest versions must match. Version-1 PDF bundles remain supported, and the same derivation, solution tagging, and execution rules apply to both versions.
-
-## Required teaching sequence
-
-Use this order unless the source material clearly calls for a different flow:
-
-1. Title, learning goals, estimated pacing, and source-version note (`learning-goals` tag).
-2. Lecture review in Markdown, organized around the few concepts students need today (`lecture-review` tag).
-3. Small executable examples immediately following each review concept (`review-example` tag).
-4. Every original recitation exercise and subexercise in its original order.
-5. A short recap or exit check (`recap` tag).
-
-Do not turn the lecture review into a slide-by-slide transcript. Explain ideas in fresh wording, and use images only when they make the explanation clearer.
-
-## Exercise cells
-
-Each exercise starts with a Markdown cell tagged `exercise-prompt`. Its metadata must include:
+Use existing version-1 metadata for ordinary notebooks; no new schema is needed:
 
 ```json
 {
-  "tags": ["exercise-prompt"],
   "icp": {
-    "exercise_id": "R01-E01",
-    "role": "prompt",
-    "concepts": ["interactive and script modes"],
-    "recitation_source": {
-      "source_id": "recitation-01",
-      "path": "recitation/Recitaion 01.pdf",
-      "sha256": "<64 lowercase hex characters>",
-      "pdf_page": 1,
-      "item_label": "Exercise 1",
-      "anchor": "Try Python in Two Modes"
-    },
-    "references": []
+    "schema_version": 1,
+    "recitation_id": "01",
+    "title": "First steps with Python",
+    "variant": "instructor"
+  },
+  "kernelspec": {
+    "name": "python3",
+    "language": "python",
+    "display_name": "Python 3"
   }
 }
 ```
 
-The cell source contains the faithful exercise wording followed immediately by the visible reference block. Give subexercises stable IDs such as `R01-E01-A` when separate code demonstrations or references are needed.
+Give each cell a stable Jupyter ID. Start each exercise with a Markdown cell tagged `exercise-prompt`, with `metadata.icp.exercise_id`, `role: "prompt"`, and a short `concepts` list. Keep the complete prompt visible. Give every numbered subpart a stable ID and at least one matching solution cell.
 
-Every value in `concepts` must be covered by at least one lecture reference and one textbook reference in that prompt's `references`. Use an unresolved reference to represent a genuine source gap rather than dropping the concept.
-
-Every solution code cell must:
-
-- have a stable Jupyter cell ID;
-- carry the `solution` tag;
-- set `metadata.icp.exercise_id` to the exercise it answers;
-- set `metadata.icp.subpart_id` when it answers a numbered subpart declared in the manifest;
-- set `metadata.icp.role` to `solution`; and
-- set `metadata.icp.student_source` to a useful, syntactically valid starter cell.
-
-Every `student_source` must contain a literal `TODO` marker, remain executable as-is, and contain an executable placeholder (`None`, `...`, `pass`, or an empty `return`). It may provide a function signature, sample input data, or targeted scaffolding, but it must not pre-fill a target computed by the solution, contain a completed answer, or substitute an equivalent precomputed result. Static checks are conservative rather than a proof of semantic non-equivalence, so the independent leakage review remains mandatory.
-
-Example metadata:
+Each solution code cell has the `solution` tag and metadata such as:
 
 ```json
 {
@@ -105,58 +48,40 @@ Example metadata:
 }
 ```
 
-Use `solution-only` for instructor explanations that should be removed entirely from the student notebook. Use `instructor-only` for facilitation notes. Do not place required problem wording or source references in cells with either removal tag.
+Omit `subpart_id` when the source has no subparts. Each `student_source` must be valid runnable Python, contain `TODO` and an executable placeholder (`None`, `...`, `pass`, or an empty return), and provide useful scaffolding without a completed or precomputed answer.
 
-## Student scaffolding
+Use `solution-only` for removable answer explanations and `instructor-only` for facilitation notes; these must also be English. Never put required prompts in removable cells. The derivation script removes these cells, replaces solutions with starter code, sanitizes metadata, and clears outputs/counts. Do not hand-edit the derived student notebook. Shared prose, examples, metadata, links, and starter values must not reveal answers or link students to `solution/`.
 
-The student version keeps:
+## Chinese solution folder
 
-- learning goals and review explanations;
-- review demo code that students are meant to see;
-- complete exercise wording and references;
-- code cells with targeted TODOs, function signatures, sample data, or partially completed tables when helpful.
+- `solution/README.md`: write in Chinese. Explain overall coverage, prerequisites evident from the exercises, learning goals, and each exercise/subpart's purpose. List files in source order and explain how to run them. Include source ambiguities and stated assumptions. Do not add lecture indexes or citation tables by default.
+- `solution/exercise-NN.py`: one UTF-8 Python file per original exercise. Begin with Chinese `#` comments identifying the exercise, concepts, teaching purpose, approach, and common mistakes. Label subparts in their original order.
+- Explain every executable code line in Chinese with a comment immediately above it or a short inline comment. Explain what it does and why, including relevant values, types, conditions, or expected results. Do not annotate blank lines or punctuation-only continuation lines. Keep long explanations above the code instead of creating oversized inline comments.
+- Keep identifiers, string messages, and program behavior in English. Use Chinese comments for explanations, not Chinese identifiers or extra explanatory print statements. Preserve ordinary indentation and blank lines between logical steps.
+- Reuse the instructor's solution logic, names, data, and subpart order. Add only necessary standalone setup and explicit `print` calls for values that Jupyter normally displays. Explain such adaptations. Do not invent a second algorithm or maintain divergent answers.
+- For conceptual or non-programming exercises, use ordered Chinese comment blocks explaining every subpart; do not invent executable code just to fill a file.
+- Each file must run independently without blocking input. Verify its results against matching instructor cells. After changing a notebook answer, synchronize its solution file.
 
-The student version removes:
+Example style inside `solution/`:
 
-- completed answer code;
-- solution reasoning and instructor notes;
-- answer-bearing outputs and execution counts;
-- answer summaries hidden in metadata.
+```python
+# 本题练习变量赋值和乘法，目的是理解如何用程序计算长方形面积。
+# 保存长方形的长度，后续计算会使用这个值。
+length = 5
+# 保存长方形的宽度，与长度使用相同的单位。
+width = 3
+# 将长度乘以宽度，得到面积并保存在描述性变量中。
+area = length * width
+# 显示计算结果，便于核对面积是否为 15。
+print(area)
+```
 
-During derivation, each instructor `solution` code cell becomes a `student-work` code cell with `metadata.icp.role = "student-work"`; it retains only the exercise ID and non-answer metadata required by the derivation script.
+## Execution and review
 
-More precisely, a derived `student-work` cell's `metadata.icp` allowlist is `exercise_id`, optional declared `subpart_id`, and `role = "student-work"`. The derived notebook's top-level metadata allowlist is `icp` plus a reconstructed `kernelspec`; `language_info` and other arbitrary notebook metadata are dropped. The `kernelspec` allowlist is `name`, `language`, and `display_name`. Cell metadata is reconstructed from `tags` and the role-specific `icp` allowlist; arbitrary nested metadata, including grading keys, answer keys, instructor notes, and slideshow payloads, is forbidden.
+Use deterministic sample values and fixed random seeds when needed. Avoid network access and unnecessary dependencies. Replace blocking input with editable variables or function parameters. Demonstrate expected errors safely with `try`/`except` or `compile`. Use temporary directories for exercises that write files.
 
-For retained prompt cells, the `metadata.icp` allowlist is `exercise_id`, `role`, `concepts`, `recitation_source`, and `references`. For other retained shared cells, it is `role` and `concept_id`. The derivation script, rather than the author, is the source of truth for this sanitization.
+Run `scripts/validate_simple_pair.py <instructor.ipynb> <student.ipynb> --execute`. Without `--execute`, this is only a structural check. It does not prove English language, completeness against the original assignment, line-by-line comment quality, or semantic parity: the independent reviewer must verify those, plus simplicity and student answer leakage. Only call a bundle classroom-ready once both fresh-kernel executions, standalone solution execution, and independent review pass.
 
-Do not use a bare `pass` when a more informative TODO or starter signature would help. Do not use an uncaught `NotImplementedError`; the student notebook should still execute from top to bottom.
+## Optional cited bundles
 
-## Code and execution rules
-
-- Target the course's current Python level; do not introduce advanced syntax merely to shorten an answer.
-- Keep examples short, observable, and easy to modify live.
-- Use deterministic values and fixed random seeds.
-- Avoid network calls and unnecessary third-party dependencies.
-- Avoid blocking `input()` during automated execution. Demonstrate input through function parameters or clearly marked editable variables unless live input is essential.
-- Do not create persistent files during ordinary examples. If file creation is the lesson, use a temporary directory or clean up the exact generated file.
-- Demonstrate expected errors without stopping the kernel. For example, compile invalid source inside `try`/`except SyntaxError`, or execute a name lookup inside `try`/`except NameError`.
-- The instructor notebook and the derived student notebook must both execute from a fresh `python3` kernel with no uncaught exception.
-
-## Images
-
-Images are optional. Prefer original diagrams or course-owned lecture figures over full-page textbook reproductions. Every reused image needs nearby source attribution with the same page semantics as text citations. Check that relative image paths render from the delivered notebook directory.
-
-## Classroom-ready gate
-
-A pair is classroom-ready only when:
-
-- all original exercises and subexercises are present once and in order;
-- each normalized exercise/subpart prompt hash matches the independently extracted recitation PDF block, and every declared subpart has a solution cell;
-- all non-unresolved references pass anchor/page/hash validation;
-- every unresolved reference has a persisted TA approval object and validation is run with `--allow-unresolved`;
-- the student notebook contains no solution or instructor-only cells and no outputs;
-- the pair passes structural comparison;
-- both notebooks execute from a fresh kernel; and
-- an independent review finds no blocking pedagogical or citation issue.
-
-Running the validator without `--execute` reports `structural_pass`, never full `pass`; it is useful during authoring but does not satisfy this gate. Supplying `--allow-unresolved` when the manifest contains no unresolved entries is also an error, so the final command records the actual review state rather than a blanket exception.
+Only for explicitly requested citation work, also use the source/citation and manifest contracts. Add `metadata.icp.source_map: "source-map.json"`, the manifest's schema version (1 for PDF, 2 for native PPTX), and per-prompt `recitation_source` and `references` copied from the approved map. Include visible English reference blocks. The legacy citation validator also requires `learning-goals`, `lecture-review`, `review-example`, and `recap` tags and complete prompt/subpart provenance. Those additional requirements apply only to that optional workflow. Preserve existing cited bundles unless the user requests changes.

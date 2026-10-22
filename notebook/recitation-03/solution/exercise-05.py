@@ -4,9 +4,9 @@
 # 覆盖离散值匹配与错误分支；目的：按整数 1 到 10 的完整对照表逐项匹配，尤其注意 IV 和 IX。假设输入是整数，不额外处理非数字文本。
 # Coverage: matching discrete values and an error branch. Purpose: implement all integers 1 through 10 from the table, especially IV and IX. Assume integer input; parsing nonnumeric text is outside this exercise.
 
-# 保存整数样例 7；交互版使用 int(input("Enter a number from 1 to 10: "))。
-# Store integer sample 7; an interactive version uses int(input("Enter a number from 1 to 10: ")).
-number = 7
+# 读取文本并用 int 转成整数，保存到 number；后续分支检查是否在 1 到 10 之间。
+# Read the user input, convert it when needed, and store it for the following code.
+number = int(input("Enter an integer from 1 through 10: "))
 # 检查输入是否等于 1；== 比较数值，不是赋值。
 # Test whether the input equals 1; == compares values rather than assigning.
 if number == 1:

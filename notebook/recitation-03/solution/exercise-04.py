@@ -1,12 +1,12 @@
 # 第 4 题：Age Classifier
 # Exercise 4: Age Classifier
 
-# 覆盖有序区间分类；目的：用 if/elif/else 保证只输出一个类别。重点检查 1、13、20 三个边界；假设年龄非负，样例使用整数岁。
-# Coverage: ordered interval classification. Purpose: use if/elif/else to select exactly one category. Check boundaries 1, 13, and 20; assume a nonnegative age and use whole years in the sample.
+# 覆盖有序区间分类；目的：用 if/elif/else 保证只输出一个类别。重点检查 1、13、20 三个边界；假设年龄非负，允许输入小数年龄。
+# Coverage: ordered interval classification. Purpose: use if/elif/else to select exactly one category. Check boundaries 1, 13, and 20; assume a nonnegative age and allow fractional ages.
 
-# 保存样例年龄 20，恰好测试成人下界。
-# Store sample age 20 to test the lower boundary of adulthood.
-age = 20
+# 读取年龄并用 float 转成数值，允许输入 0.5 等小数年龄；假设年龄非负。
+# Read the user input, convert it when needed, and store it for the following code.
+age = float(input("Age in years: "))
 # 小于或等于 1 的年龄属于婴儿；等号决定 1 的归属。
 # Ages at most 1 are infants; the equality includes age 1.
 if age <= 1:
@@ -28,7 +28,7 @@ elif age < 20:
 # 剩余年龄至少为 20，属于成人。
 # All remaining ages are at least 20 and belong to the adult category.
 else:
-    # 样例年龄为 20，因此显示 Adult。
-    # The sample is 20, so display Adult.
+    # 例如输入年龄 20 时，显示 Adult。
+    # For example, input 20 will display Adult.
     print("Adult")
 

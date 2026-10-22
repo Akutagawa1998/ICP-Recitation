@@ -42,15 +42,19 @@ python notebook/recitation-03/solution/exercise-02.py
 python notebook/recitation-03/solution/exercise-09.py
 ```
 
-中文：其余文件同样运行。脚本只使用 Python 标准功能；notebook 需要 Jupyter。若系统 Python 没有 notebook 依赖，本机可使用 `/Users/sihang/opt/anaconda3/bin/python`。修改各题开头的示例变量可以测试其他分支，不需要等待键盘输入。
+中文：其余文件同样运行。脚本只使用 Python 标准功能；notebook 需要 Jupyter。若系统 Python 没有 notebook 依赖，本机可使用 `/Users/sihang/opt/anaconda3/bin/python`。第 3–10 题运行时需要按提示输入并按 Enter；重跑后输入其他值即可测试分支。第 3 题输入四个数，第 6 题输入两个颜色，其余各输入一个数。
 
-English: Run the other files in the same way. The scripts use standard Python features; notebooks require Jupyter. On this machine, `/Users/sihang/opt/anaconda3/bin/python` provides the notebook environment. Edit sample variables at the beginning of each exercise to try other branches without waiting for keyboard input.
+English: Run the other files in the same way. The scripts use standard Python features; notebooks require Jupyter. On this machine, `/Users/sihang/opt/anaconda3/bin/python` provides the notebook environment. Exercises 3–10 wait for input: type each value and press Enter. Rerun with different values to test branches. Exercise 3 reads four numbers, Exercise 6 reads two colors, and the others read one number each.
 
 ```bash
 python .agents/skills/icp-recitation-prep/scripts/validate_simple_pair.py \
   notebook/recitation-03/recitation-03-instructor.ipynb \
-  notebook/recitation-03/recitation-03-student.ipynb --execute
+  notebook/recitation-03/recitation-03-student.ipynb
 ```
+
+中文：上面的通用验证命令只检查结构。其 `--execute` 模式不提供交互输入，不适用于本次交互版；自动运行检查应在临时副本中注入测试输入，并向脚本的标准输入提供同样的数值。正常课堂运行无需任何注入。详见[获取并使用用户输入](teaching-guide.md#获取并使用用户输入--read-and-use-user-input)。
+
+English: The command above checks structure only. Its generic `--execute` mode supplies no input and is unsuitable for this interactive version. Automated execution must supply test inputs in temporary notebook copies and through script stdin. Normal classroom use needs no injection. See the input lesson in the teaching guide.
 
 ## 课堂使用提醒 / Classroom use
 
@@ -60,6 +64,6 @@ English: Exercise 9 lacks an explicit programming task; repeated colors in Exerc
 
 ## 验证结果 / Validation results
 
-中文：已通过两个 notebook 的全新内核运行、10 个脚本的独立执行，以及 100 项答案和边界检查。已核对教师 notebook、解答脚本和讲义中的代码一致，学生版为官方脚本派生且没有输出或答案泄漏。独立审阅完成，发现的两处措辞/符号显示问题已修正，无遗留问题。运行检查使用临时副本；交付的 notebook 未保存运行输出，便于课堂先预测、再运行。
+中文：本次交互版已通过官方学生版派生校验、两个 notebook 的全新内核运行（每份临时副本提供 12 次输入）、全部 10 个脚本的独立执行，以及 110 组输入与边界检查（同时核对脚本标准输入运行和教师代码）。已核对第 3–10 题脚本、教师代码与讲义参考代码一致。独立审阅无阻塞问题，发现的旧样例措辞已修正。交付 notebook 不保存运行输出。
 
-English: Both notebooks passed fresh-kernel execution, all ten scripts ran independently, and 100 answer/boundary cases passed. Instructor, script, and handout code agree. The student notebook is officially derived, with no saved outputs or answer leakage. Independent review is complete; two wording/symbol-display issues were corrected, with no remaining findings. Execution checks used temporary copies; delivered notebooks have no saved outputs so students can predict before running.
+English: This interactive revision passed official student derivation, fresh-kernel execution of both notebooks with 12 supplied inputs each, independent execution of all ten scripts, and 110 input/boundary cases checked in both script stdin runs and instructor code. Script, instructor, and teaching-guide code agree for Exercises 3–10. Independent review found no blocking issues; stale sample wording was corrected. Delivered notebooks have no saved outputs.

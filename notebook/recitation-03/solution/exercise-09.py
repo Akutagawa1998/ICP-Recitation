@@ -7,9 +7,9 @@
 # 目的：把文字区间转成互斥分支，区分折扣率、折扣金额与应付金额。最终格式 .2f 仅让金额显示两位小数，不改变公式。
 # Purpose: translate ranges into exclusive branches and distinguish the rate, discount amount, and amount due. Formatting with .2f displays two decimal places without changing the formula.
 
-# 保存订单数量 25，落在原表 20 到 49 这一档。
-# Store order quantity 25, within the source table interval 20 through 49.
-quantity = 25
+# 读取购买数量并用 int 转成整数；按教学约定输入非负整数。
+# Read the user input, convert it when needed, and store it for the following code.
+quantity = int(input("Number of packages: "))
 # 保存原题规定的单价 99 美元，不改变样例数据。
 # Store the original unit price of 99 dollars.
 unit_price = 99
@@ -25,7 +25,7 @@ elif quantity < 20:
     # 把 10% 写成小数 0.10，以便参与乘法。
     # Write 10% as decimal 0.10 for multiplication.
     discount_rate = 0.10
-# 这一档覆盖 20 到 49，当前数量 25 进入此分支。
+# 这一档覆盖 20 到 49，例如输入数量 25 进入此分支。
 # This interval covers 20 through 49; sample quantity 25 selects it.
 elif quantity < 50:
     # 保存 20% 折扣率，而不是把应付比例 80% 当作折扣率。

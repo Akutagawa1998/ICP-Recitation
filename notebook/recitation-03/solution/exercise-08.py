@@ -4,9 +4,9 @@
 # 覆盖范围验证、嵌套判断和余数；目的：先确定号码所在区间，再根据奇偶选择颜色。不要将所有奇数都判红；0 要单独处理。
 # Coverage: range validation, nested decisions, and remainder. Purpose: locate the interval before using parity to choose the color. Odd does not always mean red; handle 0 separately.
 
-# 保存整数号码 18，测试第二段的右端点及偶数规则。
-# Store integer pocket 18 to test the second interval endpoint and its even-number rule.
-pocket = 18
+# 读取轮盘编号并用 int 转成整数；后续检查 0 到 36 的范围。
+# Read the user input, convert it when needed, and store it for the following code.
+pocket = int(input("Pocket number: "))
 # 小于 0 或大于 36 任一条件成立就越界，先排除无效号码。
 # A number below 0 or above 36 is out of range; reject it first.
 if pocket < 0 or pocket > 36:

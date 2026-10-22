@@ -4,12 +4,12 @@
 # 覆盖验证输入、and/or 和两种输入顺序；目的：把颜色配对写成布尔条件。原题未说明同色混合，补充规则是报错要求两个不同原色；只接受精确的小写名称。
 # Coverage: input validation, and/or, and both input orders. Purpose: express color pairs as Boolean conditions. The source omits duplicate colors, so report an error asking for two different primary colors; accept exact lowercase names only.
 
-# 保存第一个原色字符串 red；这里不自动改大小写。
-# Store first primary color red; case is not changed automatically.
-color1 = "red"
-# 保存第二个原色 blue；调换两个样例值也应得到同一结果。
-# Store second primary color blue; reversing the two samples should give the same result.
-color2 = "blue"
+# 读取第一个颜色名，直接保存字符串；输入小写颜色名，不加引号。
+# Read the user input, convert it when needed, and store it for the following code.
+color1 = input("First primary color: ")
+# 读取第二个颜色名，直接保存字符串；不自动改变大小写或删除空格。
+# Read the user input, convert it when needed, and store it for the following code.
+color2 = input("Second primary color: ")
 # 第一个颜色与三个允许值都不相等时才无效，因此三个比较用 and。
 # The first color is invalid only if it differs from all three allowed values, so join the tests with and.
 if color1 != "red" and color1 != "blue" and color1 != "yellow":
@@ -31,8 +31,8 @@ elif color1 == color2:
 # 分别检查红蓝和蓝红，任一顺序成立都匹配；括号把每个完整配对分组。
 # Check red-blue and blue-red; either complete pair matches, with parentheses grouping each pair.
 elif (color1 == "red" and color2 == "blue") or (color1 == "blue" and color2 == "red"):
-    # 红蓝组合输出紫色；当前样例进入此分支。
-    # Display purple for red and blue; the sample selects this branch.
+    # 输入红蓝或蓝红组合时输出紫色。
+    # Display purple for red and blue in either order.
     print("Purple")
 # 检查红黄或黄红两种顺序，避免只处理一种输入顺序。
 # Check both red-yellow and yellow-red so neither input order is omitted.

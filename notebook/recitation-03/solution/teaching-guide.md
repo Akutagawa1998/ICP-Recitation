@@ -27,37 +27,66 @@ English: Students should recognize variables, numbers, strings, basic arithmetic
 | 原题 / Source | 使用 `recitation/Recitaion 03.pdf`；保留题序和样例。原文件标题 `Recitaion`、表头 `Roman numer` 有拼写/缩写问题，不修改源文件。 | The original prompt, order, and sample data come from `Recitaion 03.pdf`. Source spelling is preserved; the source file is not edited. |
 | 题 1 / E1 | “总是”按普通实数/整数理解，不讨论 NaN 或任意自定义对象。 | “Always” is evaluated over ordinary real/integer values, excluding NaN and arbitrary custom objects. |
 | 题 2 / E2 | 原题只有赋值和两列表格。本次补充“求值并注明错误”，按每行先左后右讲解；编号是教学辅助。 | The source gives an assignment and a two-column table. We add “evaluate and note errors” and read each row left to right. Item numbering is editorial. |
-| 输入 / Input | 自动执行时用可编辑变量模拟输入；原题要求的 `input` 写法见下文。 | Editable variables simulate input for automatic execution; the original interactive input form is explained below. |
+| 输入 / Input | 第 3–10 题实际调用 input；运行时按提示输入并按 Enter。 | Exercises 3–10 call input; type each value and press Enter when prompted. |
 | 数据范围 / Domain | 年龄、质量、尺寸默认是有效的非负数；罗马数字和轮盘编号按整数处理。 | Ages, masses, and dimensions are assumed valid and nonnegative; Roman numeral inputs and pocket numbers are integers. |
 | 题 6 / E6 | 使用精确小写颜色名。两个相同的合法颜色不产生题目要求的次生色，本次提示改选两个不同颜色。 | Use exact lowercase color names. Two identical valid colors do not produce the requested secondary color; our added policy asks for two different colors. |
 | 题 7 / E7 | 100–500 N（含端点）只显示重量，无额外警告。 | From 100 through 500 N inclusive, display the weight without an additional warning. |
 | 题 9 / E9 | 原题在折扣表后缺少任务说明。本次明确补充：输入非负整数数量，计算原价总额、折扣金额和应付金额；不足 10 件按无折扣处理。 | The task instruction after the discount table is missing. Our explicit completion computes subtotal, discount, and total for a nonnegative integer quantity; fewer than 10 units receive no discount. |
 | 题 10 / E10 | 按每条独立要求输出所有适用单位的总量，用 `/` 得到可含小数的结果。不是只输出最大单位，也不是时分秒分解；不足 60 秒不显示换算。 | Each independent requirement displays the total in its unit, using `/` and allowing fractions. This is neither largest-unit-only output nor a remainder decomposition. Below 60 seconds, no conversion is displayed. |
 
-### 如何从演示变量恢复交互输入 / Restoring interactive input
+### 获取并使用用户输入 / Read and use user input
 
-中文：先让学生看懂“值从哪里来”，再解释类型转换。`input` 返回字符串；需要计算时用 `float` 或 `int`。下面只展示输入语句的替换方式，不在 notebook 自动执行路径中等待键盘输入。
+中文：第 3–10 题的脚本、教师 notebook 和学生起始代码都实际读取输入。终端运行 `.py` 后，在提示后输入一项并按 Enter；notebook 运行单元格后，在输入框填写并按 Enter。第 3 题依次输入四条边，第 6 题依次输入两个颜色。Run All 会等待输入，重新运行即可换一组值。学生版还需要完成 TODO 才会计算答案。
 
-English: Explain where a value comes from before introducing conversion. `input` returns a string; calculations may require `float` or `int`. These examples show how to replace a sample assignment without blocking the notebook's automatic execution.
+English: Scripts, instructor cells, and student starters for Exercises 3–10 read real input. In a terminal, type after the prompt and press Enter; in a notebook, use the input box. Exercise 3 reads four dimensions and Exercise 6 reads two colors, one at a time. Run All pauses for input. Rerun to try another case. Students must complete the TODOs to calculate answers.
+
+中文：讲授顺序是“显示提示 → 等待输入 → 返回字符串 → 转换类型 → 保存变量 → 使用变量”。`input` 括号里的文字是提示；用户输入的内容才是返回值。按 Enter 结束本次输入，返回的字符串不包含末尾换行，但其他空格会保留。只调用 input 而不赋值，不会把返回值保存到可供后续使用的变量中。
+
+English: Teach this sequence: show a prompt, wait, return text, convert, store, and use. The argument to input is the prompt; the user's text is the return value. Enter ends the line. The final newline is removed, but other spaces remain. Assign the result to a variable so later statements can use it.
 
 ```python
-length1 = float(input("Length of the first rectangle: "))
-age = float(input("Age in years: "))
-number = int(input("Enter an integer from 1 through 10: "))
-color1 = input("First primary color: ")
-mass = float(input("Mass in kilograms: "))
-pocket = int(input("Pocket number: "))
-quantity = int(input("Number of packages: "))
-seconds = float(input("Number of seconds: "))
+# Read text and store it.
+name = input("Your name: ")
+# Use the stored text.
+print("Hello,", name)
 ```
 
-> “Input gives us text. We convert that text to a number before doing arithmetic.”
+中文：输入 Alice 时不用加引号；name 保存字符串 "Alice"，下一行使用这个变量输出问候。数字输入也先是字符串，下面拆开每一步：
+
+English: Type Alice without quotes. The variable name stores the string "Alice", which the next line uses. Numeric input also starts as a string:
+
+```python
+# Read one line of text.
+age_text = input("Age in years: ")
+# Convert the text to a number that can have decimals.
+age = float(age_text)
+# Use the number in arithmetic and store the result.
+next_year_age = age + 1
+# Display the calculated result.
+print("Age next year:", next_year_age)
+```
+
+中文：例如输入 12.5，age_text 是字符串 "12.5"，age 是浮点数 12.5，next_year_age 是 13.5。前两行可合并为 `age = float(input("Age in years: "))`：先执行最里面的 input，再执行 float，最后用 = 保存结果。`=` 是赋值，`==` 才是比较。
+
+English: With input 12.5, age_text is the string "12.5", age is the float 12.5, and next_year_age is 13.5. Combine the first two lines as `age = float(input("Age in years: "))`: input runs first, then float, then assignment. A single equals sign assigns; double equals compares.
+
+| 输入用途 / Use | 写法 / Form | 本次题目 / Exercises |
+|---|---|---|
+| 文本 / Text | `input(...)` | 6：颜色 / Colors |
+| 整数 / Integer | `int(input(...))` | 5、8、9：整数、编号、数量 / Number, pocket, quantity |
+| 可含小数 / Decimal allowed | `float(input(...))` | 3、4、7、10：尺寸、年龄、质量、秒数 / Dimensions, age, mass, seconds |
+
+中文：`"2" + "3"` 是字符串拼接，结果是 "23"；`int("2") + int("3")` 才得到 5。不要以为输入数字就自动得到数字类型。`int("3.5")`、`float("hello")` 或空白输入会报 ValueError；本节假设数字格式正确，不增加异常重试循环。成功转换不代表符合范围，例如 int("37") 成功，但轮盘题仍要检查并拒绝 37。按既有约定，物理量与数量输入非负数。
+
+English: `"2" + "3"` joins text into "23"; `int("2") + int("3")` gives 5. Numeric-looking input is not converted automatically. `int("3.5")`, `float("hello")`, and blank numeric input raise ValueError. Assume correct numeric formatting; retry loops are outside this lesson. Conversion does not check ranges: int("37") works, but the pocket rules must reject 37. Physical quantities and package counts are assumed nonnegative.
+
+中文：输入颜色时只写 red，不写引号；输入质量时只写 60，不写 kg。下文原来的样例数值现在是建议手动输入的测试数据，不是代码的默认值。样例输出展示计算结果，运行时还会先出现输入提示。
+
+English: Type red without quotes and 60 without kg. The sample values below are suggested inputs, not defaults in the code. Sample outputs show results; an interactive run also displays input prompts first.
+
+> “Input gives us text. We convert that text to a number, store it in a variable, and then use the variable.”
 >
-> “输入得到的是文本。做算术之前，先把文本转换成数字。”
-
-中文：不要说 `int(input(...))` 自动处理所有无效输入。比如输入 `hello` 或 `3.5` 会发生转换错误；本节主要练习有效类型输入之后的条件判断。年龄可以用小数；罗马数字、轮盘编号和购买数量必须为整数。
-
-English: Do not claim that `int(input(...))` handles every invalid input. Text such as `hello` or `3.5` raises a conversion error. These exercises primarily practice decisions after input has the expected type. Age may be fractional; Roman numerals, pocket numbers, and quantities use integers.
+> “输入得到文本；把文本转换为数字并存入变量，然后使用这个变量。”
 
 ## 1. 布尔表达式 / Boolean expressions
 
@@ -162,7 +191,7 @@ English: Write `x = 10, y = 20, z = 30`. First substitute; only then ask whether
    > “应该比较长度，还是面积？”
 2. 中文：分别写 `area1 = length1 * width1` 和 `area2 = length2 * width2`，强调中间变量有助于检查。English: Compute each area in a named variable so the calculation is easy to inspect.
 3. 中文：先判断 area1 大，再判断 area2 大，剩下就是相等。English: Test whether the first area is greater, then whether the second is greater; otherwise they are equal.
-4. 中文：运行默认样例：5×4 和 4×5 都是 20；尺寸顺序不同不代表面积不同。English: Run the default example: both areas equal 20 despite the different dimensions.
+4. 中文：依次输入样例值：5×4 和 4×5 都是 20；尺寸顺序不同不代表面积不同。English: Enter the sample values: both areas equal 20 despite the different dimensions.
 
 **样例答案 / Sample answer:** `Both rectangles have the same area.`
 
@@ -179,10 +208,10 @@ English: Write `x = 10, y = 20, z = 30`. First substitute; only then ask whether
 ### 完整参考代码 / Complete reference code
 
 ```python
-length1 = 5.0
-width1 = 4.0
-length2 = 4.0
-width2 = 5.0
+length1 = float(input("Length of the first rectangle: "))
+width1 = float(input("Width of the first rectangle: "))
+length2 = float(input("Length of the second rectangle: "))
+width2 = float(input("Width of the second rectangle: "))
 area1 = length1 * width1
 area2 = length2 * width2
 if area1 > area2:
@@ -205,7 +234,7 @@ else:
    > “When we reach this elif, what do we already know about the age?”
    > “执行到这个 elif 时，我们已经知道年龄满足什么条件？”
 3. 中文：用边界值验证，不只用 8、16 这样的中间值。English: Test category boundaries, not only comfortable interior values.
-4. 中文：默认 age=20，应输出 Adult，而不是 Teenager。English: With the default age of 20, the output is Adult, not Teenager.
+4. 中文：输入 age=20，应输出 Adult，而不是 Teenager。English: With an entered age of 20, the output is Adult, not Teenager.
 
 | 年龄 / Age | 分类 / Category |
 |---|---|
@@ -221,7 +250,7 @@ else:
 ### 完整参考代码 / Complete reference code
 
 ```python
-age = 20
+age = float(input("Age in years: "))
 if age <= 1:
     print("Infant")
 elif age < 13:
@@ -242,7 +271,7 @@ else:
 1. 中文：先阅读完整映射，不让学生误以为只是重复输出 I。English: Read the complete mapping; it is not simply a repeated sequence of I characters.
 2. 中文：按 `number == 1` 到 `number == 10` 写分支，先掌握结构，不必引入字典查表。English: Use branches for values 1 through 10; a dictionary is unnecessary for this exercise's decision-structure goal.
 3. 中文：最后用 `else` 处理不在 1–10 的整数。English: Use a final `else` for integers outside 1 through 10.
-4. 中文：重点读 IV 和 IX，再运行默认 number=7，得到 VII。English: Highlight IV and IX, then run the default number 7 to obtain VII.
+4. 中文：重点读 IV 和 IX，再输入 7，得到 VII。English: Highlight IV and IX, then enter 7 to obtain VII.
 
 | 数值 / Value | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 |
 |---|---|---|---|---|---|---|---|---|---|---|
@@ -257,7 +286,7 @@ else:
 ### 完整参考代码 / Complete reference code
 
 ```python
-number = 7
+number = int(input("Enter an integer from 1 through 10: "))
 if number == 1:
     print("I")
 elif number == 2:
@@ -312,8 +341,8 @@ else:
 ### 完整参考代码 / Complete reference code
 
 ```python
-color1 = "red"
-color2 = "blue"
+color1 = input("First primary color: ")
+color2 = input("Second primary color: ")
 if color1 != "red" and color1 != "blue" and color1 != "yellow":
     print("Error: use red, blue, or yellow.")
 elif color2 != "red" and color2 != "blue" and color2 != "yellow":
@@ -338,7 +367,7 @@ else:
 1. 中文：先问单位：mass 是 kg，weight 是 N。English: Establish that mass is in kilograms and weight is in newtons.
 2. 中文：写出 `weight = mass * 9.8`，再比较 weight，不是直接拿 mass 与 500 比较。English: Calculate weight first; compare weight, not mass, against the stated thresholds.
 3. 中文：`weight > 500` 是太重，`weight < 100` 是太轻；刚好 100 或 500 都不触发警告。English: Above 500 is too heavy; below 100 is too light. Exactly 100 or 500 triggers neither warning.
-4. 中文：默认 mass=60.0，重量为 588.0 N，显示 Too heavy。English: The default mass gives 588.0 N and the warning Too heavy.
+4. 中文：输入 mass=60.0，重量为 588.0 N，显示 Too heavy。English: Entering mass 60.0 gives 588.0 N and the warning Too heavy.
 
 ```text
 Weight: 588.0 newtons
@@ -361,7 +390,7 @@ English: Substitute 100 and 500 directly into the conditions to discuss boundari
 ### 完整参考代码 / Complete reference code
 
 ```python
-mass = 60.0
+mass = float(input("Mass in kilograms: "))
 weight = mass * 9.8
 print("Weight:", weight, "newtons")
 if weight > 500:
@@ -395,14 +424,14 @@ if weight < 100:
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 结果 / Result | Error | Green | Red | Black | Black | Red | Red | Black | Black | Red | Error |
 
-**默认答案 / Default answer:** pocket=18 → `Red`。
+**输入示例 / Example input:** pocket=18 → `Red`。
 
 **检查问题 / Check:** “Why do both 10 and 11 have the same color even though their parity is different?” / “为什么 10 和 11 奇偶不同，却都是黑色？” 答案 / Answer: The odd/even color rule reverses at the interval boundary. / 因为跨过边界后奇偶对应颜色发生反转。
 
 ### 完整参考代码 / Complete reference code
 
 ```python
-pocket = 18
+pocket = int(input("Pocket number: "))
 if pocket < 0 or pocket > 36:
     print("Error: enter an integer from 0 to 36.")
 elif pocket == 0:
@@ -443,7 +472,7 @@ English: State the source omission first. We complete the task by computing the 
 1. 中文：把单位价格固定为 99，数量与金额分开命名。English: Set the unit price to 99 and distinguish quantity variables from monetary amounts.
 2. 中文：本解答按上界从小到大判断 `< 10`、`< 20`、`< 50`、`< 100`，最后是 `else`。走到后面的分支时，较小数量已被排除。也可以改用从大到小的 `>=` 判断，但不要从 `quantity >= 10` 开始，否则 100 件会提前进入最低折扣档。English: This solution checks ascending upper bounds: `< 10`, `< 20`, `< 50`, `< 100`, then `else`. Earlier branches exclude smaller quantities. Descending `>=` tests are another valid approach, but starting with `quantity >= 10` would catch a purchase of 100 too early.
 3. 中文：依次计算 `subtotal = quantity * unit_price`、`discount = subtotal * discount_rate`、`total = subtotal - discount`。English: Calculate the subtotal from quantity and unit price, multiply it by the rate for the discount, then subtract the discount for the total.
-4. 中文：默认 25 件，原价 2475，20% 折扣是 495，应付 1980。English: For 25 packages, the subtotal is 2475, the 20% discount is 495, and the total is 1980.
+4. 中文：输入 25 件，原价 2475，20% 折扣是 495，应付 1980。English: For 25 packages, the subtotal is 2475, the 20% discount is 495, and the total is 1980.
 
 > “A twenty-percent discount means we subtract twenty percent, not that the customer pays twenty percent.”
 >
@@ -471,7 +500,7 @@ English: At some tier boundaries, buying more can cost less under this whole-ord
 ### 完整参考代码 / Complete reference code
 
 ```python
-quantity = 25
+quantity = int(input("Number of packages: "))
 unit_price = 99
 if quantity < 10:
     discount_rate = 0.0
@@ -507,7 +536,7 @@ print(f"Total: ${total:.2f}")
 >
 > “多个要求能同时成立吗？如果能，elif 链可能跳过本来应该输出的内容。”
 
-**默认输出 / Default output:**
+**输入 90061 后的结果 / Results after entering 90061:**
 
 ```text
 Minutes: 1501.0166666666667
@@ -532,7 +561,7 @@ Days: 1.042372685185185
 ### 完整参考代码 / Complete reference code
 
 ```python
-seconds = 90061
+seconds = float(input("Number of seconds: "))
 if seconds >= 60:
     minutes = seconds / 60
     print("Minutes:", minutes)

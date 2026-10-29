@@ -1,62 +1,52 @@
-# Mock Midterm 原题 Question 8：Dice Duel。
-# 概念：随机整数、外层计分回合、内层平局重掷、计分器和停止条件。
-# 教学目的：明确“掷骰次数”和“回合数”不同；一回合可以包含多次平局重掷。
-# 易错点：平局错误加分或增加回合数；只重掷一人；把外层 and 写成 or。
-# 输出必须包含回合、每次骰子、平局提示、得分、胜者和总回合数。
-# 原答案重掷输出少了逗号；本程序遵循题目样例，首次和重掷格式完全相同。
-# 不使用列表、字符串方法、字典、集合或自定义函数；f-string 只负责格式化输出。
+# 练习 5：Test Average and Grade
+# 教学目的：把平均数计算与等级判断分开，练习从高到低排列条件和检查边界。
+# 解题思路：与教师 notebook 的对应答案保持相同计算逻辑。
+# 常见错误：把缺失评分表当作已知；从低分开始写 >= 条件导致高分过早归类；只把最后一项除以五。
+# 子项顺序：R06-E05-P01、R06-E05-P02
 
-# 导入标准库 random，用于产生六面骰的随机整数。
-import random
-# 固定种子 7，使课堂演示可复现；它不保证重现题目示例的具体骰子序列。
-random.seed(7)
-# Alice 初始得分为 0。
-alice_score = 0
-# Bob 初始得分为 0。
-bob_score = 0
-# 初始已进行回合数为 0，只在开始新回合时增加。
-rounds_played = 0
-# 只有两人都尚未达到 3 分才继续，and 保证任意一人胜出就停止。
-while alice_score < 3 and bob_score < 3:
-    # 新回合开始时只增加一次计数，平局重掷不执行本行。
-    rounds_played += 1
-    # 按样例格式显示当前回合编号。
-    print(f"Round {rounds_played}")
-    # 为 Alice 掷一次骰子，randint 的两个端点 1 和 6 都可能出现。
-    alice_roll = random.randint(1, 6)
-    # 为 Bob 独立掷一次骰子。
-    bob_roll = random.randint(1, 6)
-    # 显示本次两人的骰子点数，并保留中间的逗号。
-    print(f"Alice rolls {alice_roll}, Bob rolls {bob_roll}")
-    # 只要两人点数相同，就在当前回合持续重掷，不加分也不增加回合数。
-    while alice_roll == bob_roll:
-        # 按原题精确输出平局提示。
-        print("Tie! Roll again.")
-        # 平局后为 Alice 重新掷骰子，而不是只给某一人重掷。
-        alice_roll = random.randint(1, 6)
-        # 平局后也为 Bob 重新掷骰子。
-        bob_roll = random.randint(1, 6)
-        # 显示重掷结果；与首次掷骰一样使用逗号分隔。
-        print(f"Alice rolls {alice_roll}, Bob rolls {bob_roll}")
-    # 退出内层循环时已经保证不是平局，再比较胜者。
-    if alice_roll > bob_roll:
-        # Alice 点数更大，为 Alice 增加 1 分。
-        alice_score += 1
-    # 既然不是平局且 Alice 没赢，剩余情况必定是 Bob 点数更大。
+# 按要求接收五个独立的考试分数。
+def calc_average(score1, score2, score3, score4, score5):
+    # 先求总分，再除以五得到平均数。
+    return (score1 + score2 + score3 + score4 + score5) / 5
+
+# 根据明确声明的暂定评分规则返回字母等级。
+def determine_grade(score):
+    # 从最高分界开始，九十分及以上为 A。
+    if score >= 90:
+        # 返回后函数结束，不会再进入后面的分支。
+        return "A"
+    # 到此处已知低于九十，因此只需检查八十分下界。
+    elif score >= 80:
+        # 八十分至不足九十分返回 B。
+        return "B"
+    # 七十分至不足八十分使用此分支。
+    elif score >= 70:
+        # 返回等级 C。
+        return "C"
+    # 六十分至不足七十分使用此分支。
+    elif score >= 60:
+        # 返回等级 D。
+        return "D"
+    # 在约定的零至一百分范围中，剩余分数低于六十。
     else:
-        # 为 Bob 增加 1 分。
-        bob_score += 1
-    # 按样例格式显示当前回合结算后的双方得分。
-    print(f"Score: Alice {alice_score}, Bob {bob_score}")
-    # 每个回合结束留一空行，与题目示例格式一致。
-    print()
-# 外层循环结束时检查是否为 Alice 先到 3 分。
-if alice_score == 3:
-    # Alice 达到 3 分时显示 Alice 获胜。
-    print("Alice wins!")
-# 否则达到 3 分的是 Bob。
-else:
-    # 显示 Bob 获胜。
-    print("Bob wins!")
-# 最后输出已完成的计分回合数，平局重掷不另计回合。
-print("Rounds played:", rounds_played)
+        # 返回等级 F。
+        return "F"
+
+# 第一项可编辑成绩，对应等级 A。
+score1 = 95.0
+# 第二项可编辑成绩，对应等级 B。
+score2 = 82.0
+# 第三项可编辑成绩，对应等级 C。
+score3 = 76.0
+# 第四项可编辑成绩，对应等级 D。
+score4 = 64.0
+# 第五项可编辑成绩，对应等级 F。
+score5 = 50.0
+# 按原输入顺序逐个处理五项成绩。
+for score in (score1, score2, score3, score4, score5):
+    # 调用等级函数并显示当前成绩和等级。
+    print(f"Score {score:g}: {determine_grade(score)}")
+# 把五项成绩传入平均数函数。
+average = calc_average(score1, score2, score3, score4, score5)
+# 以两位小数显示平均分七十三点四零。
+print(f"Average score: {average:.2f}")

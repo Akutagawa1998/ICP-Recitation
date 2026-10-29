@@ -1,61 +1,109 @@
-# Assignment 04 原题 Exercise 2：Blackjack。
-# 概念：字符串下标、while、分支、整数转换、累加器、A 的可选点数。
-# 教学目的：把自然语言规则分成读取牌串、累计最低点数、调整 A 和判断行动四步。
-# 原题要求文件名 exercise2.py；本资料统一使用 exercise-01.py。
-# P01 是输入；P02 按 P02A Hit、P02B Stay、P02C Bust 描述输出，程序先查 Bust 才安全。
-# 易错点：10 占两字符；多张 A 不都算 11；17 必须 Stay；爆牌优先于停牌。
-# 原文遗漏：12 再拿到 10 也会爆牌，并非只有 J/Q/K；不在这里静默更改原文。
-# 采用不超过 21 的最大点数；A=11 仍低于 17 时，原文定义不全，但行动同为 Hit。
+# 练习 1：预测输出；先直接打印答案，再展示独立的修正程序。
+# 教学目的：区分打印与返回，跟踪全局变量，理解局部变量读取前必须赋值。
+# 程序 2：原题 calc 按笔误统一改为 cal，不把该拼写差异作为答案。
+# 程序 3：直接打印首个 UnboundLocalError，随后独立展示参数化修正版。
+# 子项顺序：程序 1；程序 2 答案与修正代码；程序 3 答案与修正代码。
 
-# P01：按原题提示等待用户输入手牌；input 返回字符串，例如 A39，不能将手牌转成整数。
-hand = input("Enter your hand: > ")
-# 把最低点数从 0 开始累加，之后先把每张 A 都算作 1。
-total = 0
-# 记录 A 的数量，以判断是否可以把其中一张由 1 改算为 11。
-ace_count = 0
-# 从字符串下标 0 开始，逐张读取牌。
-position = 0
-# 只要下标仍在字符串内，就继续读取；每轮必须前移以避免死循环。
-while position < len(hand):
-    # 读取当前位置的字符，用它判断当前牌的类型。
-    card = hand[position]
-    # 在合法牌串中，字符 1 必定是两字符牌 10 的开头。
-    if card == "1":
-        # 将这张 10 的点数加入总数。
-        total += 10
-        # 跳过 1 和紧跟的 0，避免把 10 拆成两张牌。
-        position += 2
-    # 其他合法牌均只占一个字符，进入这一分支处理。
-    else:
-        # 先判断当前牌是否为 A。
-        if card == "A":
-            # 先按 A 的最低值 1 累加，保留避免爆牌的可能性。
-            total += 1
-            # 记录已出现一张 A；多张 A 不应都直接算成 11。
-            ace_count += 1
-        # 若不是 A，再判断是否为三种人头牌中的一种。
-        elif card == "J" or card == "Q" or card == "K":
-            # J、Q、K 的点数都是 10。
-            total += 10
-        # 剩余合法情况是 2 到 9 的数字牌。
-        else:
-            # 将单字符数字转为整数后加入点数；不能把字符直接与整数相加。
-            total += int(card)
-        # 已处理完一张单字符牌，将下标前移一位。
-        position += 1
-# 若有 A 且多加 10 不会超过 21，就可把一张 A 从 1 升为 11；两张同时升值至少是 22，因此只需升一张。
-if ace_count > 0 and total + 10 <= 21:
-    # 把那张 A 的额外 10 点加入总数，得到不超过 21 的最大可用总数。
-    total += 10
-# P02/P02C：先判断是否超过 21，避免把爆牌误判成 Stay。
-if total > 21:
-    # 最低点数已超限时，输出题目指定的 Bust。
-    print("Bust")
-# P02B：没有爆牌且达到 17 时，庄家必须停牌。
-elif total >= 17:
-    # 输出题目指定的 Stay。
-    print("Stay")
-# P02A：剩余情况就是低于 17，应继续要牌。
-else:
-    # 输出题目指定的 Hit。
-    print("Hit")
+# Program 1: the original program.
+# 程序 1：原题程序。
+# Define a function with no parameters; its body runs only when called.
+# 定义无参数函数；函数体直到调用时才执行。
+def f():
+    # Use the global variable s inside this function.
+    # 指明函数中的 s 使用全局变量。
+    global s
+    # The global value is less at this point, so print less first.
+    # 此时全局 s 为 less，因此先显示 less。
+    print(s)
+    # Change the global value to more; the change is also visible outside.
+    # 把全局变量改为 more，函数外也能看到变化。
+    s = "more"
+    # Return more and end this function call immediately.
+    # 返回 more 并立即结束这次函数调用。
+    return s
+    # This statement follows return and can never run.
+    # 这一行在 return 后面，永远无法执行。
+    s = "less"
+# Create the global string variable before calling the function.
+# 调用之前先创建全局字符串变量。
+s = "less"
+# Run the inner print first, then print the returned value more.
+# 先执行函数内部打印，再打印函数返回的 more。
+print(f())
+# Display the updated global value more.
+# 显示修改后的全局值 more。
+print(s)
+
+# Print the result of adding 2 and 3.
+# 打印二加三得到的结果。
+print(5)
+# Print the message produced by div when its denominator is zero.
+# 打印 div 遇到零分母时显示的提示。
+print("Denominator was 0.")
+# Print the implicit return value of that zero-denominator call.
+# 打印这次零分母调用的隐式返回值。
+print(None)
+
+# Receive a function and two values; use the corrected name cal.
+# 接收一个函数和两个值；函数名按笔误修正为 cal。
+def cal(op, x, y):
+    # Call the supplied function and return its result.
+    # 调用传入的函数并返回其结果。
+    return op(x, y)
+
+# Define the addition operation.
+# 定义加法运算。
+def add(a, b):
+    # Return the sum of the two arguments.
+    # 返回两个实参的和。
+    return a + b
+
+# Define the division operation.
+# 定义除法运算。
+def div(a, b):
+    # Divide only when the denominator is not zero.
+    # 仅在分母非零时执行除法。
+    if b != 0:
+        # Return the quotient on the nonzero path.
+        # 在分母非零的路径返回商。
+        return a / b
+    # Print the message; this path then implicitly returns None.
+    # 打印提示；这条路径随后隐式返回 None。
+    print("Denominator was 0.")
+
+# Run add through cal and print 5.
+# 通过 cal 调用 add，并打印 5。
+print(cal(add, 2, 3))
+# Run div through cal; its message appears before the outer print displays None.
+# 通过 cal 调用 div；内部提示先显示，随后外层打印 None。
+print(cal(div, 2, 0))
+
+# Print the first error reached by the original program.
+# 直接打印原程序首先遇到的报错信息。
+print("UnboundLocalError: local variable 'a' referenced before assignment")
+
+# Receive the initial value as a local parameter.
+# 用局部形参接收初始值。
+def foo_fixed(a):
+    # The parameter already has a value, so increase it safely.
+    # 形参已经有值，因此可以安全地加一。
+    a += 1
+    # Save the updated value 3.
+    # 保存更新后的值 3。
+    x = a
+    # Calculate its square, 9.
+    # 计算它的平方 9。
+    y = a ** 2
+    # Return both results to the caller.
+    # 把两个结果返回调用处。
+    return x, y
+
+# Keep the caller's initial value 2.
+# 保存调用者的初始值 2。
+a = 2
+# Receive the returned values 3 and 9.
+# 接收返回的两个值 3 和 9。
+x, y = foo_fixed(a)
+# Print only defined names; the caller's a remains 2.
+# 只打印已经定义的名字；调用者的 a 仍为 2。
+print(a, x, y)

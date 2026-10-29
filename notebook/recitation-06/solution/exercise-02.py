@@ -1,33 +1,20 @@
-# Mock Midterm 原题 Question 5：Triangle Classifier。
-# 概念：三角形不等式、or/and、按优先级组织 if/elif/else。
-# 教学目的：先排除无效输入几何情况，再按“全相等、两边相等、全不同”分类。
-# 题目假设输入是正整数；这里不额外加入输入校验，保持答题范围。
-# 易错点：两边和等于第三边也无效；若先查两边相等，会误分等边三角形。
-# 不使用列表、字符串方法、字典、集合或自定义函数。
+# 练习 2：Property Tax
+# 教学目的：把题目中的百分比和单位关系写成表达式，并用参数把数据传给函数。
+# 解题思路：与教师 notebook 的对应答案保持相同计算逻辑。
+# 常见错误：混淆美分与美元；忘记每 100 美元中的除以 100；把显示两位小数误认为修改了计算规则。
 
-# 显示第一条边的提示，读取用户输入，再用 int 将数字文本转换为整数边长。
-side1 = int(input("Enter side 1: "))
-# 按原题提示读取第二条边，并将输入的文本转换为整数。
-side2 = int(input("Enter side 2: "))
-# 按原题提示读取第三条边，并将输入的文本转换为整数。
-side3 = int(input("Enter side 3: "))
-# 三组两边之和中，只要有一组小于或等于第三边，就无法组成三角形；等号也必须排除。
-if side1 + side2 <= side3 or side1 + side3 <= side2 or side2 + side3 <= side1:
-    # 记录无效三角形的英文结果。
-    result = "Invalid triangle"
-# 通过有效性检查后，先检查三边全部相等。
-elif side1 == side2 and side2 == side3:
-    # 三边相等时记录等边三角形结果。
-    result = "Equilateral triangle"
-# 等边情况已排除，所以此时任意一对相等就表示恰有两边相等。
-elif side1 == side2 or side1 == side3 or side2 == side3:
-    # 记录等腰三角形结果。
-    result = "Isosceles triangle"
-# 有效且没有任何两边相等，只能是三边各异。
-else:
-    # 记录不等边三角形结果。
-    result = "Scalene triangle"
-# 按原样例在用户输入和分类结果之间留一空行。
-print()
-# 显示唯一的分类结果。
-print(result)
+# 接收实际价值，用题目指定的函数名完成计算和显示。
+def computePropertyTax(actual_value):
+    # 实际价值的百分之六十是评估值。
+    assessment_value = actual_value * 0.60
+    # 每一百美元收零点七二美元税。
+    property_tax = assessment_value / 100 * 0.72
+    # 按两位小数显示评估值。
+    print(f"Assessment value: ${assessment_value:.2f}")
+    # 按两位小数显示税额。
+    print(f"Property tax: ${property_tax:.2f}")
+
+# 用可编辑示例代替阻塞式输入；课堂可改为 float(input(...))。
+actual_value = 10000.0
+# 把实际价值传入函数并显示两项结果。
+computePropertyTax(actual_value)
